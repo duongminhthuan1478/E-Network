@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_profile"
+    tools:context=".FindFriendActivity">
+
+    <include
+        android:id="@+id/find_friends_appbar_layout"
+        layout="@layout/app_bar_layout">
+    </include>
+
+    <RelativeLayout
+        android:id="@+id/my_layout"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/find_friends_appbar_layout">
+        <EditText
+            android:id="@+id/search_box_friend_edt"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/inputs"
+            android:layout_marginLeft="10dp"
+            android:ems="10"
+            android:hint="Search here.."
+            android:inputType="textMultiLine"
+            android:padding="10dp"/>
+        <ImageButton
+            android:id="@+id/search_people_friend_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/search"
+            android:background="@drawable/inputs"
+            android:layout_toRightOf="@id/search_box_friend_edt"/>
+    </RelativeLayout>
+
+    <!--Recyclerview hien thi ket qua search-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_result_recyclerview"
+        android:layout_alignParentStart="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:layout_below="@id/my_layout">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

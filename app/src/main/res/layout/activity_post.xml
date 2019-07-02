@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Post.PostActivity"
+    android:background="@android:color/white"
+    >
+
+    <include
+        android:id="@+id/update_post_page_toolbar"
+        layout="@layout/app_bar_layout">
+    </include>
+    <ImageButton
+        android:id="@+id/select_post_image"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@android:color/darker_gray"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        app:srcCompat="@drawable/add_post_high"
+        tools:scaleType="fitCenter"
+        />
+    <EditText
+        android:id="@+id/post_description_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/inputs"
+        android:layout_below="@+id/select_post_image"
+        android:ems="10"
+        android:layout_marginTop="2dp"
+        android:hint="Bạn đang nghĩ gì?"
+        android:inputType="textMultiLine"
+        android:padding="15dp"
+        />
+    <Button
+        android:id="@+id/update_post_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button"
+        android:layout_below="@+id/post_description_edt"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:text="UPDATE POST"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        />
+</RelativeLayout>

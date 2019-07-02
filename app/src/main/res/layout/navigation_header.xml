@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tạo header cho NavigationView chứa trong Main -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/holo_red_light"
+    >
+
+    <!-- Circle ImageView cho hinh anh profile -->
+    <!--app:civ_border_width="2dp": border cho hinh anh-->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/nav_profile_img"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/profile"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/colorPrimaryDark"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/nav_user_full_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="User Name"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/nav_profile_img"
+        android:textColor="@android:color/white"
+        android:layout_centerInParent="true"
+        />
+
+
+
+</RelativeLayout>

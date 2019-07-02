@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "847058202618",
+    "firebase_url": "https://education-network-7c49b.firebaseio.com",
+    "project_id": "education-network-7c49b",
+    "storage_bucket": "education-network-7c49b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847058202618:android:c565305c2209934b",
+        "android_client_info": {
+          "package_name": "com.thuanduong.education.network"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "847058202618-nt09ausr8f9bcen7c6m79p8pa1efdv98.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thuanduong.education.network",
+            "certificate_hash": "86f68b4c0fd73260de2b7ab9b88b59e0bdcffbb7"
+          }
+        },
+        {
+          "client_id": "847058202618-30aq26pdhib7t4ni0tc3trfl6lapdm4h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAytROEggP_KBtkjrqSN6HzbECNbmibxcg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "847058202618-30aq26pdhib7t4ni0tc3trfl6lapdm4h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

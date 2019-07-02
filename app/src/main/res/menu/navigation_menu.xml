@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--  Menu cho Navigation (Addfriend -serach - tim, trang chu) -->
+    <item
+        android:id="@+id/navigation_home"
+        android:title="Home"
+        android:icon="@drawable/home">
+    </item>
+
+    <item
+        android:id="@+id/navigation_post"
+        android:title="Add New Post"
+        android:icon="@drawable/add_post">
+    </item>
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:title="Profile"
+        android:icon="@drawable/profile_icon">
+    </item>
+
+    <item
+        android:id="@+id/navigation_friends"
+        android:title="Bạn Bè"
+        android:icon="@drawable/friends">
+    </item>
+
+    <item
+        android:id="@+id/navigation_find_friends"
+        android:title="Tìm Bạn"
+        android:icon="@drawable/find_people">
+    </item>
+
+    <item
+        android:id="@+id/navigation_message"
+        android:title="Tin Nhắn"
+        android:icon="@drawable/messages">
+    </item>
+
+    <item
+        android:id="@+id/navigation_setting"
+        android:title="Setting"
+        android:icon="@drawable/settings">
+    </item>
+
+    <item
+        android:id="@+id/navigation_logout"
+        android:title="Đăng Xuất"
+        android:icon="@drawable/logout">
+    </item>
+
+</menu>
