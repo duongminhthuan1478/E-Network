@@ -2,75 +2,61 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.thuanduong.education.network">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.READ_PROFILE"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.thuanduong.education.network.MainActivity">
-        </activity>
-        <activity android:name="com.thuanduong.education.network.Account.RegisterActivity">
-        </activity>
-        <activity android:name="com.thuanduong.education.network.Account.LoginActivity">
+        <activity android:name=".News.NewsDetailActivity"></activity>
+        <activity android:name=".News.NewsActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Account.RegisterActivity" />
+        <activity android:name=".Account.LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.thuanduong.education.network.Account.SetupActivity">
-        </activity>
+        <activity android:name=".Account.SetupActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
-        <activity android:name="com.thuanduong.education.network.Post.PostActivity">
-        </activity>
-        <activity android:name="com.thuanduong.education.network.Post.ClickPostActivity">
-        </activity>
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".Post.PostActivity" />
+        <activity android:name=".Post.ClickPostActivity" />
         <activity
-            android:name="com.thuanduong.education.network.Account.SettingActivity"
-            android:parentActivityName="com.thuanduong.education.network.MainActivity">
-        </activity>
-        <activity android:name="com.thuanduong.education.network.Account.ProfileActivity">
-        </activity>
+            android:name=".Account.SettingActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".Account.ProfileActivity" />
         <activity
-            android:name="com.thuanduong.education.network.FindFriendActivity"
-            android:parentActivityName="com.thuanduong.education.network.MainActivity">
-        </activity>
-        <activity android:name="com.thuanduong.education.network.Post.CommentsActivity">
-        </activity>
+            android:name=".FindFriendActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".Post.CommentsActivity" />
         <activity
-            android:name="com.thuanduong.education.network.Account.ResetPasswordActivity"
-            android:parentActivityName="com.thuanduong.education.network.MainActivity">
-        </activity>
-        <activity android:name="com.thuanduong.education.network.PersonProfileActivity">
-        </activity>
+            android:name=".Account.ResetPasswordActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".PersonProfileActivity" />
         <activity
-            android:name="com.thuanduong.education.network.FriendActivity"
-            android:parentActivityName="com.thuanduong.education.network.MainActivity">
-        </activity>
+            android:name=".FriendActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name="com.thuanduong.education.network.ChatActivity"
-            android:parentActivityName="com.thuanduong.education.network.MainActivity">
-        </activity>
+            android:name=".ChatActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name="com.thuanduong.education.network.Post.MyPostAcitivity"
-            android:parentActivityName="com.thuanduong.education.network.MainActivity">
-        </activity>
-        <activity android:name="com.thuanduong.education.network.Friends_RequestFriend.FriendsActivity"
-            android:parentActivityName="com.thuanduong.education.network.MainActivity">
-        </activity>
+            android:name=".Post.MyPostAcitivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Friends_RequestFriend.FriendsActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

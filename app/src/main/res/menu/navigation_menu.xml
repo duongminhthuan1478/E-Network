@@ -4,14 +4,20 @@
     <!--  Menu cho Navigation (Addfriend -serach - tim, trang chu) -->
     <item
         android:id="@+id/navigation_home"
-        android:title="Home"
+        android:title="Trang Chủ"
         android:icon="@drawable/home">
     </item>
 
     <item
         android:id="@+id/navigation_post"
-        android:title="Add New Post"
+        android:title="Đăng Bài"
         android:icon="@drawable/add_post">
+    </item>
+
+    <item
+        android:id="@+id/navigation_news"
+        android:title="Tin Tức"
+        android:icon="@drawable/ic_newspaper">
     </item>
 
     <item

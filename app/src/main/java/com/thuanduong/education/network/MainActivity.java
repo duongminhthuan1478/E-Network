@@ -23,6 +23,7 @@ import com.thuanduong.education.network.Account.SettingActivity;
 import com.thuanduong.education.network.Account.SetupActivity;
 import com.thuanduong.education.network.Friends_RequestFriend.FriendsActivity;
 import com.thuanduong.education.network.Model.Post;
+import com.thuanduong.education.network.News.NewsActivity;
 import com.thuanduong.education.network.Post.ClickPostActivity;
 import com.thuanduong.education.network.Post.CommentsActivity;
 import com.thuanduong.education.network.Post.PostActivity;
@@ -269,6 +270,9 @@ public class MainActivity extends AppCompatActivity {
                 sendUserToFriendActivity();
                 break;
 
+            case R.id.navigation_news:
+                sendUserToNewsActivity();
+                break;
             case R.id.navigation_setting:
                 sendUserToSettingActivity();
                 break;
@@ -507,12 +511,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
     private void sendUserToPostActivity() {
         Intent addNewPostIntent = new Intent(MainActivity.this, PostActivity.class);
         startActivity(addNewPostIntent);
     }
-
     private void sendUserToLoginActivity() {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         // Xử lý khi nhấn back -> thoát app chứ không quay lại mainactivity
@@ -543,6 +545,10 @@ public class MainActivity extends AppCompatActivity {
     }
     private void sendUserToFriendsActivity() {
         Intent Intent = new Intent(MainActivity.this, FriendsActivity.class);
+        startActivity(Intent);
+    }
+    private void sendUserToNewsActivity() {
+        Intent Intent = new Intent(MainActivity.this, NewsActivity.class);
         startActivity(Intent);
     }
 
