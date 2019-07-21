@@ -6,14 +6,24 @@
     <string name="drawer_open">Drawer Open</string>
     <string name="title_activity_reset_password">Reset Password</string>
 
-    <!-- Titlt Fragment -->
+    <!-- Titlt Fragment Friends_RequestFriend pakage-->
     <string name="title_fragment_request_friend">Lời Mời</string>
     <string name="title_fragment_listfriend">Danh Sách Bạn</string>
+
+    <!-- Titlt Fragment News -->
+    <string name="title_fragment_enroll_infor">TT Tuyển Sinh</string>
+    <string name="title_fragment_activities">Hoạt Động</string>
+    <string name="title_fragment_news">Tin Tức</string>
+
+    <!-- String for news function -->
+    <string name="news_title_text">Title</string>
+    <string name="news_date_text">Date</string>
+    <string name="news_sum_content_text">Summary Content</string>
 
     <!-- -->
     <string name="title_toolbar_friends">Bạn Bè</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
