@@ -16,7 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatBotActivity"></activity>
+        <activity android:name=".Event.CreateClassRegisterActivity"></activity>
+        <activity android:name=".Event.CreateOtherActivity" />
+        <activity android:name=".Event.CreateCharitableActivity" />
+        <activity android:name=".Event.CreateSeminarActivity" />
+        <activity android:name=".Event.CreateEventActivity" />
+        <activity android:name=".ChatBotActivity" />
         <activity android:name=".News.NewsDetailActivity" />
         <activity android:name=".News.NewsActivity" />
         <activity android:name=".MainActivity" />

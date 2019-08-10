@@ -21,6 +21,7 @@ import com.thuanduong.education.network.Account.LoginActivity;
 import com.thuanduong.education.network.Account.ProfileActivity;
 import com.thuanduong.education.network.Account.SettingActivity;
 import com.thuanduong.education.network.Account.SetupActivity;
+import com.thuanduong.education.network.Event.CreateEventActivity;
 import com.thuanduong.education.network.Friends_RequestFriend.FriendsActivity;
 import com.thuanduong.education.network.Model.Post;
 import com.thuanduong.education.network.News.NewsActivity;
@@ -273,6 +274,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.navigation_news:
                 sendUserToNewsActivity();
                 break;
+
+            case R.id.navigation_events:
+                sendUserToCreateEventsActivity();
+                break;
+
             case R.id.navigation_setting:
                 sendUserToSettingActivity();
                 break;
@@ -288,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
 
     private void displayAllUserPosts() {
             /** Biến counter dữ tổng số lượng bài post
@@ -530,6 +537,10 @@ public class MainActivity extends AppCompatActivity {
     }
     private void sendUserToFindFriendActivity() {
         Intent Intent = new Intent(MainActivity.this, FindFriendActivity.class);
+        startActivity(Intent);
+    }
+    private void sendUserToCreateEventsActivity() {
+        Intent Intent = new Intent(MainActivity.this, CreateEventActivity.class);
         startActivity(Intent);
     }
     private void sendUserToFriendActivity() {
