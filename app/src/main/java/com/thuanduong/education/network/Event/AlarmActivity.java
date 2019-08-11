@@ -55,7 +55,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         if(intent.hasExtra("eventId")
                 && intent.hasExtra("eventName")
-                && intent.hasExtra("address")
                 && intent.hasExtra("title")
                 && intent.hasExtra("startTime"))
         {
@@ -81,7 +80,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         sleepBtn.setOnClickListener(this);
     }
     void doAlarm(){
-        Log.d("doAlarm", "doAlarm");
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         r = RingtoneManager.getRingtone(getApplicationContext(), notification);
         r.play();
