@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,6 +33,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
+        Log.d("doAlarm", "start");
         viewSetup();
         getEventData();
         doAlarm();
@@ -79,6 +81,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         sleepBtn.setOnClickListener(this);
     }
     void doAlarm(){
+        Log.d("doAlarm", "doAlarm");
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         r = RingtoneManager.getRingtone(getApplicationContext(), notification);
         r.play();
@@ -89,6 +92,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                 finish();
             }
         }, 50000);
+
     }
     void stopAlarm(){
         r.stop();

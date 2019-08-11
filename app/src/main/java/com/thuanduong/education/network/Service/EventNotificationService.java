@@ -60,7 +60,8 @@ public class EventNotificationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        eventRef = FirebaseDatabase.getInstance().getReference("Events");
+        Log.d("onStartCommand", "ddm nos chayj roi");
+        eventRef = FirebaseDatabase.getInstance().getReference(Event.EVENT_REF);
         createRuntime();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -79,11 +80,12 @@ public class EventNotificationService extends Service {
         });
     }
 
-   void getParticipatingEventsList(){
+    void getParticipatingEventsList(){
         FirebaseDatabase.getInstance().getReference(Event.EVENT_REF).orderByChild(Event.START_TIME).startAt(Time.getCur()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 events.clear();
+                Log.d("service data", dataSnapshot.toString());
                 for(DataSnapshot eventSnapshot:dataSnapshot.getChildren()){
                     Event event = new Event(eventSnapshot);
                     String userid = mAuth.getCurrentUser().getUid();

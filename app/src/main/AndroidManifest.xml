@@ -16,9 +16,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Event.MyEventActivity"></activity>
-        <activity android:name=".Event.ListUserEventActivity"
-            android:screenOrientation="landscape"></activity>
+        <service
+            android:name=".Service.EventNotificationService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".Event.MyEventActivity" />
+        <activity
+            android:name=".Event.ListUserEventActivity"
+            android:screenOrientation="landscape" />
         <activity android:name=".Event.JoinEventActivity" />
         <activity android:name=".Event.EventListActivity" />
         <activity android:name=".Event.AlarmActivity" />

@@ -582,7 +582,7 @@ public class MainActivity extends AppCompatActivity {
 
     void startService() {
         Log.d("main", "service started");
-        if(!isMyServiceRunning(EventNotificationService.class))
+        //if(!isMyServiceRunning(EventNotificationService.class))
             startService(new Intent(getBaseContext(), EventNotificationService.class));
     }
     private boolean isMyServiceRunning(Class<?> serviceClass) {
