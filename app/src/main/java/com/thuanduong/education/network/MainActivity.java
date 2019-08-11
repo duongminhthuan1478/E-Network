@@ -1,5 +1,7 @@
 package com.thuanduong.education.network;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,12 +25,15 @@ import com.thuanduong.education.network.Account.ProfileActivity;
 import com.thuanduong.education.network.Account.SettingActivity;
 import com.thuanduong.education.network.Account.SetupActivity;
 import com.thuanduong.education.network.Event.CreateEventActivity;
+import com.thuanduong.education.network.Event.EventListActivity;
+import com.thuanduong.education.network.Event.MyEventActivity;
 import com.thuanduong.education.network.Friends_RequestFriend.FriendsActivity;
 import com.thuanduong.education.network.Model.Post;
 import com.thuanduong.education.network.News.NewsActivity;
 import com.thuanduong.education.network.Post.ClickPostActivity;
 import com.thuanduong.education.network.Post.CommentsActivity;
 import com.thuanduong.education.network.Post.PostActivity;
+import com.thuanduong.education.network.Service.EventNotificationService;
 import com.thuanduong.education.network.Ultil.ShowToast;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -87,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // khởi đông service
+        startService();
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mAddNewPostImgButton = (ImageButton) findViewById(R.id.add_new_post_img_button);
@@ -276,7 +285,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.navigation_events:
-                sendUserToCreateEventsActivity();
+                sendUserToListEventsActivity();
+                break;
+
+            case R.id.navigation_my_event:
+                sendUserToMyEventsActivity();
                 break;
 
             case R.id.navigation_setting:
@@ -539,8 +552,12 @@ public class MainActivity extends AppCompatActivity {
         Intent Intent = new Intent(MainActivity.this, FindFriendActivity.class);
         startActivity(Intent);
     }
-    private void sendUserToCreateEventsActivity() {
-        Intent Intent = new Intent(MainActivity.this, CreateEventActivity.class);
+    private void sendUserToListEventsActivity() {
+        Intent Intent = new Intent(MainActivity.this, EventListActivity.class);
+        startActivity(Intent);
+    }
+    private void sendUserToMyEventsActivity() {
+        Intent Intent = new Intent(MainActivity.this, MyEventActivity.class);
         startActivity(Intent);
     }
     private void sendUserToFriendActivity() {
@@ -563,5 +580,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(Intent);
     }
 
+    void startService() {
+        Log.d("main", "service started");
+        if(!isMyServiceRunning(EventNotificationService.class))
+            startService(new Intent(getBaseContext(), EventNotificationService.class));
+    }
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

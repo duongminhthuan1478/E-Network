@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Event.CreateSeminarActivity">
-    <include android:id="@+id/create_seminar_activity_toolbar"
+    tools:context=".Event.CreateClassRegisterActivity">
+    <include android:id="@+id/create_class_register_activity_toolbar"
         layout="@layout/app_bar_layout">
     </include>
     <ScrollView
@@ -17,74 +17,75 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <EditText
-                android:id="@+id/create_seminar_event_name"
+                android:id="@+id/create_class_register_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tên hoạt động"/>
             <EditText
-                android:id="@+id/create_seminar_event_org"
+                android:id="@+id/create_class_register_event_subject_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Đơn vị tổ chức"/>
+                android:hint="Mã môn "/>
             <EditText
-                android:id="@+id/create_seminar_event_speakes"
+                android:id="@+id/create_class_register_event_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Những người trình bày"/>
-            <EditText
-                android:id="@+id/create_seminar_event_recmd_audience"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Những người nên tham gia"/>
-            <EditText
-                android:id="@+id/create_seminar_event_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nội dung chương trình"/>
-
-            <EditText
-                android:id="@+id/create_seminar_event_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="địa chỉ"/>
+                android:hint="vài dòng năn nỉ"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Start date :"/>
                 <Button
-                    android:id="@+id/create_seminar_event_start"
+                    android:id="@+id/create_class_register_event_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:text="start date"/>
-
-                <Button
-                    android:id="@+id/create_seminar_event_end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:text="end date"/>
+                    android:text="start"/>
             </LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/create_seminar_event_recyclerview"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="End date :"/>
+                <Button
+                    android:id="@+id/create_class_register_event_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="end"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/create_class_register_event_min"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="số lượng tối thiểu"/>
+            <EditText
+                android:id="@+id/create_class_register_event_limit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="số lượng"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <Button
-                    android:id="@+id/create_seminar_event_submit"
+                    android:id="@+id/create_class_register_event_submit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Create"
+                    android:text="Submit"
                     android:layout_margin="20dp"/>
                 <Button
-                    android:id="@+id/create_seminar_event_cancel"
+                    android:id="@+id/create_class_register_event_cancel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

@@ -33,13 +33,13 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.class_register_event_btn:
-
+                sendUsertoCreateClassRegisterActivity();
                 break;
             case R.id.charitable_event_btn:
-
+                sendUsertoCreateCharitableActivity();
                 break;
             case R.id.seminar_event_btn:
-
+                sendUsertoCreateSeminarActivity();
                 break;
             case R.id.other_event_btn:
                 sendUsertoCreateOtherActivity();
@@ -49,5 +49,22 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     void sendUsertoCreateOtherActivity(){
         Intent intent = new Intent(this, CreateOtherActivity.class);
         startActivity(intent);
+        finish();
     }
+    void sendUsertoCreateCharitableActivity(){
+        Intent intent = new Intent(this, CreateCharitableActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    void sendUsertoCreateClassRegisterActivity(){
+        Intent intent = new Intent(this, CreateClassRegisterActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    void sendUsertoCreateSeminarActivity(){
+        Intent intent = new Intent(this, CreateSeminarActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

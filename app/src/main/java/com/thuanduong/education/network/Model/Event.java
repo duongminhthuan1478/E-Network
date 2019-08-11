@@ -98,8 +98,34 @@ public class Event {
         return participantsUser.size();
     }
 
+    public HashMap getSummary(){
+        HashMap m = new HashMap();
+        return m;
+    }
 
+    public String getEventName(){
+        return "null";
+    }
+    public String getEventTitle(){
+        return "null";
+    }
+    public String getEventContent(){
+        return "null";
+    }
+    public String getEventImage(){
+        return imgs.size() > 0 ? imgs.get(0) : "null";
+    }
     // getter & setter
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getCreateUser() {
         return createUser;
     }

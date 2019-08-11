@@ -1,5 +1,7 @@
 package com.thuanduong.education.network.Model;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
@@ -54,6 +56,29 @@ public class CharitableEvent extends Event  {
         map.put(ADDRESS,address);
         map.put(PARTICIPANTS_REQ,participantsRequire);
         eventRef.child(id+"").setValue(map);
+        Log.d("submited: ", map.toString());
+    }
+
+    @Override
+    public HashMap getSummary() {
+        HashMap m = new HashMap();
+
+        return m;
+    }
+
+    @Override
+    public String getEventName(){
+        return name;
+    }
+
+    @Override
+    public String getEventTitle(){
+        return org;
+    }
+
+    @Override
+    public String getEventContent(){
+        return detail;
     }
 
     //getter & setter

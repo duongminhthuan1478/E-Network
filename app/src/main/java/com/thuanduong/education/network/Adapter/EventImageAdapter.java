@@ -9,10 +9,10 @@ import com.thuanduong.education.network.R;
 
 import java.util.ArrayList;
 
-public class OtherEventImageAdapter extends RecyclerView.Adapter<eventImageRecyclerViewHolder>{
+public class EventImageAdapter extends RecyclerView.Adapter<eventImageRecyclerViewHolder>{
     OtherEventRecyclerViewAdapterInterface OtherEventRecyclerViewAdapterInterface;
     private ArrayList<String> imgs ;
-    public OtherEventImageAdapter(ArrayList<String> imgs, OtherEventRecyclerViewAdapterInterface OtherEventRecyclerViewAdapterInterface) {
+    public EventImageAdapter(ArrayList<String> imgs, OtherEventRecyclerViewAdapterInterface OtherEventRecyclerViewAdapterInterface) {
         this.imgs = imgs;
         this.OtherEventRecyclerViewAdapterInterface = OtherEventRecyclerViewAdapterInterface;
     }

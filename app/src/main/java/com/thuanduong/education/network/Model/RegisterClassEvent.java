@@ -47,6 +47,20 @@ public class RegisterClassEvent extends Event{
         map.put(MIN,min);
         eventRef.child(id+"").setValue(map);
     }
+    @Override
+    public String getEventName(){
+        return name;
+    }
+
+    @Override
+    public String getEventTitle(){
+        return classId;
+    }
+
+    @Override
+    public String getEventContent(){
+        return content;
+    }
 
     //getter & setter
 

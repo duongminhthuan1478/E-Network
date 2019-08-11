@@ -10,13 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -29,11 +26,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-import com.thuanduong.education.network.Adapter.ChatBotRecyclerAdapter;
-import com.thuanduong.education.network.Adapter.OtherEventImageAdapter;
-import com.thuanduong.education.network.Adapter.ViewHolder.ChatBotRecyclerViewHolder;
+import com.thuanduong.education.network.Adapter.EventImageAdapter;
 import com.thuanduong.education.network.Adapter.ViewHolder.eventImageRecyclerViewHolder;
-import com.thuanduong.education.network.Model.ChatBotMess;
 import com.thuanduong.education.network.Model.Event;
 import com.thuanduong.education.network.Model.OtherEvent;
 import com.thuanduong.education.network.R;
@@ -43,7 +37,7 @@ import com.thuanduong.education.network.Ultil.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class CreateOtherActivity extends AppCompatActivity implements View.OnClickListener, OtherEventImageAdapter.OtherEventRecyclerViewAdapterInterface {
+public class CreateOtherActivity extends AppCompatActivity implements View.OnClickListener, EventImageAdapter.OtherEventRecyclerViewAdapterInterface {
     // data
     DatabaseReference eventRef ;
     //obj
@@ -61,12 +55,12 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
     //auth
     private FirebaseAuth mAuth;
     // adapter
-    OtherEventImageAdapter adapter;
+    EventImageAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_other);
-        eventRef = FirebaseDatabase.getInstance().getReference("Events");
+        eventRef = FirebaseDatabase.getInstance().getReference(Event.EVENT_REF);
         setViews();
         setDefaultTime();
         clickListener();
@@ -143,7 +137,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         eventImgRecyclerview.setLayoutManager(layoutManager);
-        adapter = new OtherEventImageAdapter(imgs,this);
+        adapter = new EventImageAdapter(imgs,this);
         eventImgRecyclerview.setAdapter(adapter);
     }
     void clickListener(){
@@ -248,6 +242,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
     void getData(){
         mAuth = FirebaseAuth.getInstance();
         createUser = mAuth.getCurrentUser().getUid();
+        detail = detailET.getText().toString();
         name = nameET.getText().toString();
         org = orgET.getText().toString();
         address = addressET.getText().toString();

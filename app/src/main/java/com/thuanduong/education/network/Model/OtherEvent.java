@@ -48,6 +48,20 @@ public class OtherEvent extends Event {
         map.put(ADDRESS,address);
         eventRef.child(id+"").setValue(map);
     }
+    @Override
+    public String getEventName(){
+        return "null";
+    }
+
+    @Override
+    public String getEventTitle(){
+        return "null";
+    }
+
+    @Override
+    public String getEventContent(){
+        return "null";
+    }
 
     //getter & setter
 

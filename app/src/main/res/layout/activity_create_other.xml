@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Event.CreateSeminarActivity">
-    <include android:id="@+id/create_seminar_activity_toolbar"
+    tools:context=".Event.CreateOtherActivity">
+    <include android:id="@+id/create_other_activity_toolbar"
         layout="@layout/app_bar_layout">
     </include>
     <ScrollView
@@ -17,58 +17,53 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <EditText
-                android:id="@+id/create_seminar_event_name"
+                android:id="@+id/create_other_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tên hoạt động"/>
             <EditText
-                android:id="@+id/create_seminar_event_org"
+                android:id="@+id/create_other_event_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Đơn vị tổ chức"/>
+                android:hint="Thông tin chi tiết "/>
             <EditText
-                android:id="@+id/create_seminar_event_speakes"
+                android:id="@+id/create_other_event_org"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Những người trình bày"/>
+                android:hint="đơn vị tổ chức"/>
             <EditText
-                android:id="@+id/create_seminar_event_recmd_audience"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Những người nên tham gia"/>
-            <EditText
-                android:id="@+id/create_seminar_event_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nội dung chương trình"/>
-
-            <EditText
-                android:id="@+id/create_seminar_event_address"
+                android:id="@+id/create_other_event_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="địa chỉ"/>
+            <EditText
+                android:id="@+id/create_other_event_limit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="số lượng"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <Button
-                    android:id="@+id/create_seminar_event_start"
+                    android:id="@+id/create_other_event_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:text="start date"/>
+                    android:text="start"/>
 
                 <Button
-                    android:id="@+id/create_seminar_event_end"
+                    android:id="@+id/create_other_event_end"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:text="end date"/>
+                    android:text="end"/>
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/create_seminar_event_recyclerview"
+                android:id="@+id/create_other_event_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:orientation="horizontal"/>
@@ -77,14 +72,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <Button
-                    android:id="@+id/create_seminar_event_submit"
+                    android:id="@+id/create_other_event_submit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Create"
+                    android:text="Submit"
                     android:layout_margin="20dp"/>
                 <Button
-                    android:id="@+id/create_seminar_event_cancel"
+                    android:id="@+id/create_other_event_cancel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

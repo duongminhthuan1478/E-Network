@@ -16,7 +16,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Event.CreateClassRegisterActivity"></activity>
+        <activity android:name=".Event.MyEventActivity"></activity>
+        <activity android:name=".Event.ListUserEventActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".Event.JoinEventActivity" />
+        <activity android:name=".Event.EventListActivity" />
+        <activity android:name=".Event.AlarmActivity" />
+        <activity android:name=".Event.CreateClassRegisterActivity" />
         <activity android:name=".Event.CreateOtherActivity" />
         <activity android:name=".Event.CreateCharitableActivity" />
         <activity android:name=".Event.CreateSeminarActivity" />
