@@ -20,36 +20,43 @@
                 android:id="@+id/create_seminar_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:hint="Tên hoạt động"/>
             <EditText
                 android:id="@+id/create_seminar_event_org"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:hint="Đơn vị tổ chức"/>
             <EditText
                 android:id="@+id/create_seminar_event_speakes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:hint="Những người trình bày"/>
             <EditText
                 android:id="@+id/create_seminar_event_recmd_audience"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:hint="Những người nên tham gia"/>
             <EditText
                 android:id="@+id/create_seminar_event_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:hint="Nội dung chương trình"/>
 
             <EditText
                 android:id="@+id/create_seminar_event_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:hint="địa chỉ"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:orientation="horizontal">
                 <Button
                     android:id="@+id/create_seminar_event_start"
@@ -71,6 +78,7 @@
                 android:id="@+id/create_seminar_event_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_margin="5dp"
                 android:orientation="horizontal"/>
             <LinearLayout
                 android:layout_width="match_parent"

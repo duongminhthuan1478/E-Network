@@ -26,7 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import com.thuanduong.education.network.Event.AlarmActivity;
 import com.thuanduong.education.network.MainActivity;
+import com.thuanduong.education.network.Model.CharitableEvent;
 import com.thuanduong.education.network.Model.Event;
+import com.thuanduong.education.network.Model.OtherEvent;
+import com.thuanduong.education.network.Model.RegisterClassEvent;
+import com.thuanduong.education.network.Model.SeminarEvent;
 import com.thuanduong.education.network.R;
 import com.thuanduong.education.network.Ultil.Time;
 
@@ -88,6 +92,20 @@ public class EventNotificationService extends Service {
                 Log.d("service data", dataSnapshot.toString());
                 for(DataSnapshot eventSnapshot:dataSnapshot.getChildren()){
                     Event event = new Event(eventSnapshot);
+                    switch(eventSnapshot.child(Event.EVENT_TYPE).getValue().toString()){
+                        case CharitableEvent.eventType:
+                            event = new CharitableEvent(eventSnapshot);
+                            break;
+                        case RegisterClassEvent.eventType:
+                            event = new RegisterClassEvent(eventSnapshot);
+                            break;
+                        case SeminarEvent.eventType:
+                            event = new SeminarEvent(eventSnapshot);
+                            break;
+                        case OtherEvent.eventType:
+                            event = new OtherEvent(eventSnapshot);
+                            break;
+                    }
                     String userid = mAuth.getCurrentUser().getUid();
                     if(event.isJoined(userid)&&!event.isUserAlarmDisable(userid)){
                         events.add(event);

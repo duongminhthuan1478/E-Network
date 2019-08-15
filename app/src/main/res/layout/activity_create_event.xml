@@ -14,30 +14,60 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-        <ImageButton
-            android:id="@+id/class_register_event_btn"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <ImageButton
-            android:id="@+id/seminar_event_btn"
+            android:layout_weight="1"
+            android:background="@drawable/basic_border"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/class_register_event_btn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/class_register_event" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@drawable/basic_border"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/seminar_event_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/seminar_event"
+                android:layout_weight="1"/>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-        <ImageButton
-            android:id="@+id/charitable_event_btn"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <ImageButton
-            android:id="@+id/other_event_btn"
+            android:layout_weight="1"
+            android:background="@drawable/basic_border"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/charitable_event_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/charity_event"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@drawable/basic_border"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/other_event_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/other_event"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

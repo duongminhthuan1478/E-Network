@@ -58,14 +58,13 @@ public class CharitableEvent extends Event  {
         eventRef.child(id+"").setValue(map);
         Log.d("submited: ", map.toString());
     }
-
     @Override
-    public HashMap getSummary() {
-        HashMap m = new HashMap();
-
-        return m;
+    public String getSummary() {
+        String summary = getEventName()
+                +"\n" + getEventTitle()
+                +"\n" + getEventContent();
+        return summary;
     }
-
     @Override
     public String getEventName(){
         return name;

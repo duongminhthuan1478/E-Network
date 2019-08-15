@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Event.EventDetailActivity">
+    <include android:id="@+id/event_detail_activity_toolbar"
+        layout="@layout/app_bar_layout">
+    </include>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="NỘI DUNG SỰ KIỆN"
+        android:textSize="20dp" />
+    <TextView
+        android:id="@+id/event_detail_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="18dp" />
+    <Button
+        android:id="@+id/event_detail_join_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="JOIN"
+        android:visibility="invisible"/>
+    <Button
+        android:id="@+id/event_detail_left_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="left"
+        android:visibility="invisible"/>
+</LinearLayout>

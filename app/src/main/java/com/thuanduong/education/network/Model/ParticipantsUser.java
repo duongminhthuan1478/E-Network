@@ -3,12 +3,22 @@ package com.thuanduong.education.network.Model;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.thuanduong.education.network.Event.EventMission;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ParticipantsUser{
+    public static final String PARTICIPANTS_USER = "participantsUser";
+    public static final String SDT = "sdt";
+    public static final String NAME = "name";
+    public static final String USERNAME = "userName";
+    public static final String MSSV = "mssv";
+    public static final String ALARM_DISABLE = "alarmDisable";
+    public static final String IS_MALE = "isMale";
     String id,sdt,name,userName,mssv;
     boolean isMale,alarmDisable = false;
+    String mission ;
     public ParticipantsUser(String id, String sdt, String name, boolean isMale, String userName,String mssv) {
         this.id = id;
         this.sdt = sdt;
@@ -16,45 +26,63 @@ public class ParticipantsUser{
         this.isMale = isMale;
         this.userName = userName;
         this.mssv = mssv;
+        this.mission = "null";
+    }
+    public ParticipantsUser(String id, String sdt, String name, boolean isMale, String userName,String mssv,String mission) {
+        this.id = id;
+        this.sdt = sdt;
+        this.name = name;
+        this.isMale = isMale;
+        this.userName = userName;
+        this.mssv = mssv;
+        this.mission = mission;
     }
     public ParticipantsUser(DataSnapshot dataSnapshot) {
         this.id = dataSnapshot.getKey();
-        this.sdt = dataSnapshot.child("sdt").getValue().toString();
-        this.name = dataSnapshot.child("name").getValue().toString();
-        this.isMale =Boolean.parseBoolean(dataSnapshot.child("isMale").getValue().toString());
-        this.userName = dataSnapshot.child("userName").getValue().toString();
-        this.alarmDisable = Boolean.parseBoolean(dataSnapshot.child("alarmDisable").getValue().toString());
-        if(dataSnapshot.hasChild("mssv"))
-        this.mssv = dataSnapshot.child("mssv").getValue().toString();
+        if(dataSnapshot.hasChild(SDT))
+            this.sdt = dataSnapshot.child(SDT).getValue().toString();
+        if(dataSnapshot.hasChild(NAME))
+            this.name = dataSnapshot.child(NAME).getValue().toString();
+        if(dataSnapshot.hasChild(IS_MALE))
+            this.isMale =Boolean.parseBoolean(dataSnapshot.child(IS_MALE).getValue().toString());
+        if(dataSnapshot.hasChild(USERNAME))
+            this.userName = dataSnapshot.child(USERNAME).getValue().toString();
+        if(dataSnapshot.hasChild(ALARM_DISABLE))
+            this.alarmDisable = Boolean.parseBoolean(dataSnapshot.child(ALARM_DISABLE).getValue().toString());
+        if(dataSnapshot.hasChild(MSSV))
+            this.mssv = dataSnapshot.child(MSSV).getValue().toString();
+        if(dataSnapshot.hasChild(EventMission.MISSON_REF))
+            this.mission = dataSnapshot.child(EventMission.MISSON_REF).getValue().toString();
     }
 
     public HashMap toHashMap(){
         HashMap map = new HashMap();
-        map.put("sdt",sdt);
-        map.put("name",name);
-        map.put("isMale",isMale);
-        map.put("alarmDisable",alarmDisable);
-        map.put("userName",userName);
-        map.put("mssv",mssv);
+        map.put(SDT,sdt);
+        map.put(NAME,name);
+        map.put(IS_MALE,isMale);
+        map.put(ALARM_DISABLE,alarmDisable);
+        map.put(USERNAME,userName);
+        map.put(MSSV,mssv);
+        map.put(EventMission.MISSON_REF,mission);
         return map;
     }
 
     public void submit(String eventId){
         FirebaseDatabase.getInstance()
-                .getReference("Events")
+                .getReference(Event.EVENT_REF)
                 .child(eventId)
-                .child("participantsUser")
+                .child(PARTICIPANTS_USER)
                 .child(id)
                 .setValue(toHashMap());
     }
 
     public static void disableAlarm(String eventId,String userId){
         FirebaseDatabase.getInstance()
-                .getReference("Events")
+                .getReference(Event.EVENT_REF)
                 .child(eventId)
-                .child("participantsUser")
+                .child(PARTICIPANTS_USER)
                 .child(userId)
-                .child("alarmDisable")
+                .child(ALARM_DISABLE)
                 .setValue(true);
     }
     public boolean isAlarmDisable() {
@@ -111,5 +139,13 @@ public class ParticipantsUser{
 
     public void setMssv(String mssv) {
         this.mssv = mssv;
+    }
+
+    public String getMission() {
+        return mission;
+    }
+
+    public void setMission(String mission) {
+        this.mission = mission;
     }
 }

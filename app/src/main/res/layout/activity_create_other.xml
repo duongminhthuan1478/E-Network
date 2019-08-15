@@ -20,32 +20,31 @@
                 android:id="@+id/create_other_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:hint="Tên hoạt động"/>
             <EditText
                 android:id="@+id/create_other_event_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:hint="Thông tin chi tiết "/>
             <EditText
                 android:id="@+id/create_other_event_org"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:hint="đơn vị tổ chức"/>
             <EditText
                 android:id="@+id/create_other_event_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:hint="địa chỉ"/>
-            <EditText
-                android:id="@+id/create_other_event_limit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="số lượng"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
                 <Button
                     android:id="@+id/create_other_event_start"
                     android:layout_width="wrap_content"
@@ -62,11 +61,48 @@
                     android:layout_weight="1"
                     android:text="end"/>
             </LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/create_other_event_recyclerview"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:orientation="horizontal"/>
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:text="Missión"/>
+                    <ImageButton
+                        android:id="@+id/create_other_event_mission_add_btn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@android:drawable/ic_input_add" />
+
+                </LinearLayout>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/create_other_event_mission_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/basic_border"/>
+                </ScrollView>
+
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/create_other_event_img_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                android:background="@drawable/basic_border"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

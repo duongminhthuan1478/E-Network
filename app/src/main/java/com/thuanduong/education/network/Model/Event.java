@@ -98,9 +98,14 @@ public class Event {
         return participantsUser.size();
     }
 
-    public HashMap getSummary(){
-        HashMap m = new HashMap();
-        return m;
+    public boolean canJoin(String uid){
+        return !isJoined(uid) && (partnerCount() < getLimit() || getLimit()==0 );
+    }
+    public String getSummary() {
+        String summary = getEventName()
+                +"\n" + getEventTitle()
+                +"\n" + getEventContent();
+        return summary;
     }
 
     public String getEventName(){

@@ -1,8 +1,10 @@
 package com.thuanduong.education.network.Event;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
@@ -10,10 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -27,9 +33,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.thuanduong.education.network.Adapter.EventImageAdapter;
+import com.thuanduong.education.network.Adapter.EventMissionAdapter;
+import com.thuanduong.education.network.Adapter.ViewHolder.MissionRecyclerViewHolder;
 import com.thuanduong.education.network.Adapter.ViewHolder.eventImageRecyclerViewHolder;
 import com.thuanduong.education.network.Model.Event;
 import com.thuanduong.education.network.Model.OtherEvent;
+import com.thuanduong.education.network.PersonProfileActivity;
 import com.thuanduong.education.network.R;
 import com.thuanduong.education.network.Ultil.ShowToast;
 import com.thuanduong.education.network.Ultil.Time;
@@ -37,7 +46,7 @@ import com.thuanduong.education.network.Ultil.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class CreateOtherActivity extends AppCompatActivity implements View.OnClickListener, EventImageAdapter.OtherEventRecyclerViewAdapterInterface {
+public class CreateOtherActivity extends AppCompatActivity implements View.OnClickListener, EventImageAdapter.OtherEventRecyclerViewAdapterInterface, EventMissionAdapter.OtherEventRecyclerViewAdapterInterface {
     // data
     DatabaseReference eventRef ;
     //obj
@@ -47,15 +56,19 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
     int limit;
     long startTime, endTime;
     ArrayList<String> imgs = new ArrayList<>();
+    ArrayList<EventMission> missions = new ArrayList<>();
     //view
-    EditText nameET,detailET,orgET,addressET,limitET;
+    EditText nameET,detailET,orgET,addressET;
     Button startBtn,endBtn,submitBtn,cancelBtn;
+    ImageButton addMissionBtn;
     RecyclerView eventImgRecyclerview;
+    RecyclerView eventMissionRecyclerview;
     ProgressDialog progressDialog;
     //auth
     private FirebaseAuth mAuth;
     // adapter
-    EventImageAdapter adapter;
+    EventImageAdapter imageAdapter;
+    EventMissionAdapter missionAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +98,9 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
             case R.id.create_other_event_end:
                 setEndDate();
                 break;
+            case R.id.create_other_event_mission_add_btn:
+                addMission();
+                break;
         }
     }
     private void openGallery() {
@@ -111,7 +127,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
                         @Override
                         public void onSuccess(Uri uri) {
                             imgs.add(uri.toString());
-                            adapter.notifyDataSetChanged();
+                            imageAdapter.notifyDataSetChanged();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -128,17 +144,24 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         detailET = findViewById(R.id.create_other_event_detail);
         orgET = findViewById(R.id.create_other_event_org);
         addressET = findViewById(R.id.create_other_event_address);
-        limitET = findViewById(R.id.create_other_event_limit);
         startBtn = findViewById(R.id.create_other_event_start);
         endBtn = findViewById(R.id.create_other_event_end);
         submitBtn = findViewById(R.id.create_other_event_submit);
         cancelBtn = findViewById(R.id.create_other_event_cancel);
-        eventImgRecyclerview = findViewById(R.id.create_other_event_recyclerview);
+        addMissionBtn = findViewById(R.id.create_other_event_mission_add_btn);
+        eventImgRecyclerview = findViewById(R.id.create_other_event_img_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         eventImgRecyclerview.setLayoutManager(layoutManager);
-        adapter = new EventImageAdapter(imgs,this);
-        eventImgRecyclerview.setAdapter(adapter);
+        imageAdapter = new EventImageAdapter(imgs,this);
+        eventImgRecyclerview.setAdapter(imageAdapter);
+
+        eventMissionRecyclerview = findViewById(R.id.create_other_event_mission_recyclerview);
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        layoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
+        eventMissionRecyclerview.setLayoutManager(layoutManager1);
+        missionAdapter = new EventMissionAdapter(missions,this);
+        eventMissionRecyclerview.setAdapter(missionAdapter);
     }
     void clickListener(){
         startBtn.setOnClickListener(this);
@@ -146,6 +169,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         submitBtn.setOnClickListener(this);
         cancelBtn.setOnClickListener(this);
         eventImgRecyclerview.setOnClickListener(this);
+        addMissionBtn.setOnClickListener(this);
     }
 
     void setDefaultTime(){
@@ -221,8 +245,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         check &= nameET.getText().toString().length() > 0
                 &&detailET.getText().toString().length() > 0
                 &&orgET.getText().toString().length() > 0
-                &&addressET.getText().toString().length() > 0
-                &&limitET.getText().toString().length() > 0;
+                &&addressET.getText().toString().length() > 0;
         if(!check) {
             ShowToast.showToast(CreateOtherActivity.this,"you have entered incomplete information");
             return false;
@@ -232,7 +255,12 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
             ShowToast.showToast(CreateOtherActivity.this,"start time must be less than end time");
             return false;
         }
-        check &= adapter.getItemCount() > 1;
+        check &= imageAdapter.getItemCount() > 1;
+        if(!check) {
+            ShowToast.showToast(CreateOtherActivity.this,"missing avatar for event");
+            return false;
+        }
+        check &= missions.size() > 0;
         if(!check) {
             ShowToast.showToast(CreateOtherActivity.this,"missing avatar for event");
             return false;
@@ -246,8 +274,8 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         name = nameET.getText().toString();
         org = orgET.getText().toString();
         address = addressET.getText().toString();
-        limit = Integer.parseInt(limitET.getText().toString());
-        event = new OtherEvent(createUser, imgs, startTime, endTime, limit, name, detail, org, address);
+        limit = 0;
+        event = new OtherEvent(createUser, imgs, startTime, endTime, limit, missions, name, detail, org, address);
     }
 
     @Override
@@ -275,4 +303,45 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         }
 
     }
+
+    @Override
+    public void onBindViewHolder1(MissionRecyclerViewHolder holder, ArrayList<EventMission> missions, int position) {
+        EventMission mission = missions.get(position);
+        holder.nameTv.setText(mission.name);
+        holder.amountTv.setText(String.valueOf(mission.amount));
+    }
+    EditText et_name,et_amount;
+    void addMission(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(CreateOtherActivity.this);
+        builder.setTitle(" New mission : " );
+        // tạo các comportment
+        TextView tv_name= new TextView(CreateOtherActivity.this);
+        tv_name.setText("Mission Name");
+        et_name= new EditText(CreateOtherActivity.this);
+        TextView tv_amount= new TextView(CreateOtherActivity.this);
+        tv_amount.setText("Mission limit");
+        et_amount = new EditText(CreateOtherActivity.this);
+        et_amount.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.addView(tv_name);
+        linearLayout.addView(et_name);
+        linearLayout.addView(tv_amount);
+        linearLayout.addView(et_amount);
+        builder.setView(linearLayout);
+        //
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String name = et_name.getText().toString();
+                int amount = Integer.parseInt(et_amount.getText().toString());
+                EventMission eventMission = new EventMission(name,amount);
+                missions.add(eventMission);
+                missionAdapter.notifyDataSetChanged();
+            }
+        });
+        builder.show();
+    }
+
 }

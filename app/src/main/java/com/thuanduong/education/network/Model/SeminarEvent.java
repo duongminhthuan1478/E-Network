@@ -55,7 +55,13 @@ public class SeminarEvent extends Event {
         map.put(ADDRESS,address);
         eventRef.child(id+"").setValue(map);
     }
-
+    @Override
+    public String getSummary() {
+        String summary = getEventName()
+                +"\n" + getEventTitle()
+                +"\n" + getEventContent();
+        return summary;
+    }
     @Override
     public String getEventName(){
         return name;

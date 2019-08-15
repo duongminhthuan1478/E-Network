@@ -63,6 +63,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             title = intent.getStringExtra("title");
             startTime = Time.timeRemaining(intent.getLongExtra("startTime",0));
             userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            doAlarm();
         }
         else finish();
         //
