@@ -247,7 +247,10 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
         mAuth = FirebaseAuth.getInstance();
         createUser = mAuth.getCurrentUser().getUid();
         name = nameET.getText().toString();
+        speakers = speakerET.getText().toString();
+        recmdAudien = recmdAudienceET.getText().toString();
         org = orgET.getText().toString();
+        content = contentET.getText().toString();
         address = addressET.getText().toString();
         limit = 0;
         event = new SeminarEvent(createUser, imgs, startTime, endTime, limit, name, org, speakers, recmdAudien, content, address);

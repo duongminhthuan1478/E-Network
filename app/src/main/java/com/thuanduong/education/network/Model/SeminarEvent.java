@@ -29,12 +29,18 @@ public class SeminarEvent extends Event {
 
     public SeminarEvent(DataSnapshot dataSnapshot) {
         super(dataSnapshot);
-        this.name = dataSnapshot.child(NAME).getValue().toString();
-        this.org = dataSnapshot.child(ORG).getValue().toString();
-        this.speakers = dataSnapshot.child(SPEAKERS).getValue().toString();
-        this.recmdAudien =dataSnapshot.child(RECMD_AUDIEN).getValue().toString();
-        this.content = dataSnapshot.child(CONTENT).getValue().toString();
-        this.address = dataSnapshot.child(ADDRESS).getValue().toString();
+        if(dataSnapshot.hasChild(NAME))
+            this.name = dataSnapshot.child(NAME).getValue().toString();
+        if(dataSnapshot.hasChild(ORG))
+            this.org = dataSnapshot.child(ORG).getValue().toString();
+        if(dataSnapshot.hasChild(SPEAKERS))
+            this.speakers = dataSnapshot.child(SPEAKERS).getValue().toString();
+        if(dataSnapshot.hasChild(RECMD_AUDIEN))
+            this.recmdAudien =dataSnapshot.child(RECMD_AUDIEN).getValue().toString();
+        if(dataSnapshot.hasChild(CONTENT))
+            this.content = dataSnapshot.child(CONTENT).getValue().toString();
+        if(dataSnapshot.hasChild(ADDRESS))
+            this.address = dataSnapshot.child(ADDRESS).getValue().toString();
     }
 
     @Override

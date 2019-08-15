@@ -88,17 +88,16 @@ public class MyEventActivity extends AppCompatActivity  implements EventRecycler
         h.title.setText(event.getEventTitle());
         h.description.setText(event.getEventContent());
         Picasso.get().load(event.getEventImage()).into(h.image);
+        // limit = 0 mean infinity
         h.member.setText(event.partnerCount() + "/" + (event.getLimit() != 0 ? event.getLimit() : "∞"));
         h.startTime.setText(Time.timeRemaining(event.getStartTime()));
-        if(!event.isJoined( mAuth.getCurrentUser().getUid())&&event.partnerCount()<event.getLimit()){
-            h.accept_btn.setVisibility(View.VISIBLE);
-            h.accept_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sendUserToJoinEventActivity(event.getId());
-                }
-            });
-        }else h.accept_btn.setVisibility(View.INVISIBLE);
+        h.accept_btn.setVisibility(View.VISIBLE);
+        h.accept_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToEventDetailActivity(event.getId());
+            }
+        });
         if(event.isCreator( mAuth.getCurrentUser().getUid())){
             h.get_list_btn.setVisibility(View.VISIBLE);
             h.get_list_btn.setOnClickListener(new View.OnClickListener() {
@@ -110,8 +109,12 @@ public class MyEventActivity extends AppCompatActivity  implements EventRecycler
         }else h.get_list_btn.setVisibility(View.INVISIBLE);
     }
 
-    private void sendUserToJoinEventActivity(String eventId){
-        Intent Intent = new Intent(this, JoinEventActivity.class);
+    private void sendUserToCreateEventActivity(){
+        Intent Intent = new Intent(this, CreateEventActivity.class);
+        startActivity(Intent);
+    }
+    private void sendUserToEventDetailActivity(String eventId){
+        Intent Intent = new Intent(this, EventDetailActivity.class);
         Intent.putExtra("eventId",eventId);
         startActivity(Intent);
     }
