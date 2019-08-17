@@ -21,6 +21,12 @@
     </item>
 
     <item
+        android:id="@+id/navigation_events"
+        android:title="Sự kiện"
+        android:icon="@drawable/username">
+    </item>
+
+    <item
         android:id="@+id/navigation_profile"
         android:title="Profile"
         android:icon="@drawable/profile_icon">

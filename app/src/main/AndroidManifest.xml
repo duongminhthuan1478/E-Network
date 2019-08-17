@@ -16,7 +16,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatBotActivity"></activity>
+        <activity android:name=".Event.EventsListActivity"></activity>
+        <activity android:name=".Event.EventDetailActivity" />
+
+        <service
+            android:name=".Service.EventNotificationService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".Event.ListUserEventActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".Event.JoinEventActivity" />
+        <activity android:name=".Event.EventListActivity" />
+        <activity android:name=".Event.AlarmActivity" />
+        <activity android:name=".Event.CreateClassRegisterActivity" />
+        <activity android:name=".Event.CreateOtherActivity" />
+        <activity android:name=".Event.CreateCharitableActivity" />
+        <activity android:name=".Event.CreateSeminarActivity" />
+        <activity android:name=".Event.CreateEventActivity" />
+        <activity android:name=".ChatBotActivity" />
         <activity android:name=".News.NewsDetailActivity" />
         <activity android:name=".News.NewsActivity" />
         <activity android:name=".MainActivity" />
