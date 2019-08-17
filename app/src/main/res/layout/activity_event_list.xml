@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:dividerHeight="10dp"
-            android:background="#FFFFFF">
+            android:background="#E0E0E0">
+
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
     <android.support.design.widget.FloatingActionButton
@@ -26,6 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
+        android:tint="@android:color/white"
+        app:backgroundTint="@android:color/holo_red_light"
         android:src="@android:drawable/ic_input_add" />
 
 </FrameLayout>
