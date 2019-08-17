@@ -11,25 +11,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="12dp"
             android:background="@drawable/basic_border"
             android:text="name"/>
         <TextView
             android:id="@+id/user_event_item_phone_number"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
             android:background="@drawable/basic_border"
+            android:textSize="10dp"
             android:text="phoneNumber"/>
         <TextView
             android:id="@+id/user_event_item_mssv"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
             android:background="@drawable/basic_border"
+            android:textSize="10dp"
             android:text="mssv"/>
         <TextView
             android:id="@+id/user_event_item_gender"
             android:layout_width="75dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/basic_border"
+            android:textSize="10dp"
             android:text="gender"/>
+        <TextView
+            android:id="@+id/user_event_item_note"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/basic_border"
+            android:textSize="10dp"
+            android:text=""/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

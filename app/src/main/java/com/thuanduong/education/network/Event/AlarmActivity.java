@@ -36,7 +36,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         Log.d("doAlarm", "start");
         viewSetup();
         getEventData();
-        doAlarm();
     }
 
     @Override
@@ -85,7 +84,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         r = RingtoneManager.getRingtone(getApplicationContext(), notification);
         r.play();
         new Handler().postDelayed(new Runnable() {
-
             @Override
             public void run() {
                 finish();
@@ -112,5 +110,12 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                 sleepAlarm();
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        r.stop();
+        finish();
+        super.onDestroy();
     }
 }

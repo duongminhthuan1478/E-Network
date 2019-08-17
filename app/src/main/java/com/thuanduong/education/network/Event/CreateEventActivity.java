@@ -6,12 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.thuanduong.education.network.ChatBotActivity;
 import com.thuanduong.education.network.R;
 
 public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
-    ImageButton classRegisterBtn,charityBtn,seminarBtn,otherBtn;
+    TextView classRegisterBtn,charityBtn,seminarBtn,otherBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

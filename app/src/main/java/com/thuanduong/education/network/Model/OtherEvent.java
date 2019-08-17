@@ -18,8 +18,8 @@ public class OtherEvent extends Event {
     String name,detail,org,address;
     public static final String eventType = "OtherEvent";
 
-    public OtherEvent(String createUser, ArrayList<String> imgs, long startTime, long endTime, int limit, ArrayList<EventMission> missions, String name, String detail, String org, String address) {
-        super(createUser, imgs, startTime, endTime, limit);
+    public OtherEvent(String id,String createUser, ArrayList<String> imgs, long startTime, long endTime, int limit, ArrayList<EventMission> missions, String name, String detail, String org, String address) {
+        super(id,createUser, imgs, startTime, endTime, limit);
         this.missions = missions;
         this.name = name;
         this.detail = detail;
@@ -93,7 +93,6 @@ public class OtherEvent extends Event {
         int count = 0;
         for (EventMission mission:missions) {
             if(mission.getName().equals(missionName)) {
-
                 for (ParticipantsUser participantsUser1 : participantsUser) {
                     if (participantsUser1.getMission().equals(mission.getName())) {
                         count++;
@@ -153,6 +152,10 @@ public class OtherEvent extends Event {
         return detail;
     }
 
+    public String getType(){
+        return eventType;
+    }
+
     //getter & setter
 
     public String getName() {
@@ -189,5 +192,13 @@ public class OtherEvent extends Event {
 
     public static String getEventType() {
         return eventType;
+    }
+
+    public ArrayList<EventMission> getMissions() {
+        return missions;
+    }
+
+    public void setMissions(ArrayList<EventMission> missions) {
+        this.missions = missions;
     }
 }

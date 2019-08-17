@@ -13,7 +13,8 @@ public class EventRecyclerViewHolder extends RecyclerView.ViewHolder {
     public View mView;
     public ImageButton image;
     public TextView name,title,startTime,member,status,description;
-    public Button accept_btn,get_list_btn;
+    public Button accept_btn,get_list_btn,edit_button,del_button;
+    public LinearLayout layout;
     public EventRecyclerViewHolder(View itemView) {
         super(itemView);
         mView = itemView;
@@ -25,6 +26,9 @@ public class EventRecyclerViewHolder extends RecyclerView.ViewHolder {
         description = mView.findViewById(R.id.description_event_textview);
         accept_btn = mView.findViewById(R.id.accept_button);
         get_list_btn = mView.findViewById(R.id.get_list_button);
+        edit_button = mView.findViewById(R.id.edit_button);
+        del_button = mView.findViewById(R.id.del_button);
         image = mView.findViewById(R.id.image_event_list);
+        layout = mView.findViewById(R.id.event_layout);
     }
 }

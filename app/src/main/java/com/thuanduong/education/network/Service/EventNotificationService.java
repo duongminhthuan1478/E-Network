@@ -134,7 +134,7 @@ public class EventNotificationService extends Service {
 
     void alarmClock(Event event){
         Intent intent = new Intent(this, AlarmActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("eventId",event.getId());
         intent.putExtra("eventName",event.getEventName());
         intent.putExtra("title",event.getEventTitle());

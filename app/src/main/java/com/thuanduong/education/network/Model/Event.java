@@ -24,16 +24,18 @@ public class Event {
     ArrayList<String> imgs = new ArrayList<>();
     ArrayList<ParticipantsUser> participantsUser = new ArrayList<>();
 
-
-    public Event(String createUser,ArrayList<String> imgs, long startTime, long endTime, int limit) {
+    public Event(String id,String createUser,ArrayList<String> imgs, long startTime, long endTime, int limit) {
         eventRef = FirebaseDatabase.getInstance().getReference(EVENT_REF);
-        this.id = eventRef.push().getKey();
+        if(id.length() > 0)
+            this.id = id;
+        else this.id = eventRef.push().getKey();
         this.createUser = createUser;
         this.imgs = imgs;
         this.startTime = startTime;
         this.endTime = endTime;
         this.limit = limit;
     }
+
 
     public Event(DataSnapshot dataSnapshot) {
         eventRef = FirebaseDatabase.getInstance().getReference(EVENT_REF);
@@ -51,6 +53,10 @@ public class Event {
     }
 
     public void submit(){
+    }
+
+    public void remove(){
+        eventRef.child(id).setValue(null);
     }
 
     protected HashMap participantsUserHashMap(){
@@ -119,6 +125,9 @@ public class Event {
     }
     public String getEventImage(){
         return imgs.size() > 0 ? imgs.get(0) : "null";
+    }
+    public String getType(){
+        return "null";
     }
     // getter & setter
 

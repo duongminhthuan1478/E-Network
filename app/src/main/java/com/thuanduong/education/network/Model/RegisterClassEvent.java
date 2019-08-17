@@ -15,8 +15,8 @@ public class RegisterClassEvent extends Event{
     int min;
     public static final String eventType = "RegisterClassEvent";
 
-    public RegisterClassEvent(String createUser, ArrayList<String> imgs, long startTime, long endTime, int limit, String name, String classId, String content, int min) {
-        super(createUser, imgs, startTime, endTime, limit);
+    public RegisterClassEvent(String id,String createUser, ArrayList<String> imgs, long startTime, long endTime, int limit, String name, String classId, String content, int min) {
+        super(id,createUser, imgs, startTime, endTime, limit);
         this.name = name;
         this.classId = classId;
         this.content = content;
@@ -69,6 +69,10 @@ public class RegisterClassEvent extends Event{
     @Override
     public String getEventContent(){
         return content;
+    }
+
+    public String getType(){
+        return eventType;
     }
 
     //getter & setter

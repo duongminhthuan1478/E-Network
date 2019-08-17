@@ -1,9 +1,13 @@
 package com.thuanduong.education.network.Event;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -16,9 +20,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.thuanduong.education.network.MainActivity;
+import com.thuanduong.education.network.Model.CharitableEvent;
+import com.thuanduong.education.network.Model.Event;
+import com.thuanduong.education.network.Model.OtherEvent;
 import com.thuanduong.education.network.Model.ParticipantsUser;
 import com.thuanduong.education.network.R;
 import com.thuanduong.education.network.Ultil.ShowToast;
+
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class JoinEventActivity extends AppCompatActivity implements View.OnClickListener {
     String eventId = "";
@@ -30,9 +42,9 @@ public class JoinEventActivity extends AppCompatActivity implements View.OnClick
     private DatabaseReference mUserDatabaseRef;
     //
     ParticipantsUser participantsUser;
-    String userId,sdt,name,userName=null,mssv;
-    boolean isMale;
-
+    String userId,sdt,name,userName=null,mssv,mission=null;
+    boolean isMale,isOtherEvent = false;
+    OtherEvent otherEvent ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +53,7 @@ public class JoinEventActivity extends AppCompatActivity implements View.OnClick
         mUserDatabaseRef = FirebaseDatabase.getInstance().getReference("Users");
         viewSetup();
         getEventId();
-        getUsername();
+        getEventData();
     }
     void viewSetup(){
         male = findViewById(R.id.radioButton_male);
@@ -67,6 +79,20 @@ public class JoinEventActivity extends AppCompatActivity implements View.OnClick
         submit.setOnClickListener(this);
         cancel.setOnClickListener(this);
     }
+    void getEventData(){
+        FirebaseDatabase.getInstance().getReference(Event.EVENT_REF).child(eventId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(isOtherEvent = dataSnapshot.child(Event.EVENT_TYPE).getValue().toString().equals(OtherEvent.eventType)){
+                    otherEvent = new OtherEvent(dataSnapshot);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
     boolean checkInputData(){
         boolean check = true;
         check &= phoneNumberET.getText().toString().length()> 0
@@ -78,6 +104,7 @@ public class JoinEventActivity extends AppCompatActivity implements View.OnClick
         Intent intent = getIntent();
         if(intent.hasExtra("eventId")){
             eventId = intent.getStringExtra("eventId");
+            getUsername();
         }else
         {
             Toast.makeText(this," this event no longer exist",Toast.LENGTH_LONG).show();
@@ -90,18 +117,20 @@ public class JoinEventActivity extends AppCompatActivity implements View.OnClick
         name = nameET.getText().toString();
         userName = userName==null ?nameET.getText().toString() :userName;
         mssv = mssvET.getText().toString();
-        participantsUser = new ParticipantsUser(userId,sdt,name,isMale,userName,mssv);
+        participantsUser = new ParticipantsUser(userId,sdt,name,isMale,userName,mssv,mission);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.join_event_submit:
-                if(checkInputData()){
+                if(isOtherEvent)
+                    missionOption();
+                else if(checkInputData()){
                     getData();
                     participantsUser.submit(eventId);
+                    finish();
                 }
-                finish();
                 break;
             case R.id.join_event_cancel:
                 finish();
@@ -113,14 +142,9 @@ public class JoinEventActivity extends AppCompatActivity implements View.OnClick
         mUserDatabaseRef.child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-
+                if(dataSnapshot.exists())
                     userName = dataSnapshot.child("fullname").getValue().toString();
-                }
-                else {
-                    ShowToast.showToast(JoinEventActivity.this, "Profile name do not exists..");
-                }
-
+                else ShowToast.showToast(JoinEventActivity.this, "Profile name do not exists..");
             }
 
             @Override
@@ -128,5 +152,24 @@ public class JoinEventActivity extends AppCompatActivity implements View.OnClick
 
             }
         });
+    }
+
+
+    void missionOption(){
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item,otherEvent.vacantMissionList());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("option :");
+        builder.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(checkInputData()){
+                    mission = otherEvent.vacantMissionList().get(i);
+                    getData();
+                    participantsUser.submit(eventId);
+                }
+                finish();
+            }
+        });
+        builder.show();
     }
 }

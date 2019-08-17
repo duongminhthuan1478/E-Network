@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,8 +21,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,7 +47,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
     //obj
     CharitableEvent event;
     //attribute
-    String createUser,eventName,detail,org,schedule, address;
+    String id = "",createUser,eventName,detail,org,schedule, address;
     int limit,participantsRequire;
     long startTime, endTime;
     ArrayList<String> imgs = new ArrayList<>();
@@ -62,10 +66,36 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
         setContentView(R.layout.activity_create_charitable);
         eventRef = FirebaseDatabase.getInstance().getReference(Event.EVENT_REF);
         setViews();
+        dataSetup();
         setDefaultTime();
         clickListener();
     }
+    void dataSetup(){
+        if(getIntent().hasExtra("eventId")){
+            final String eventId = getIntent().getStringExtra("eventId");
+            eventRef.child(eventId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                     CharitableEvent event = new CharitableEvent(dataSnapshot);
+                     id = eventId;
+                     nameET.setText(event.getName());
+                     detailET.setText(event.getDetail());
+                     scheduleET.setText(event.getSchedule());
+                     orgET.setText(event.getOrg());
+                     addressET.setText(event.getAddress());
+                     requireET.setText(event.getParticipantsRequire()+"");
+                     limitET.setText(event.getLimit()+"");
+                     imgs.addAll(event.getImgs());
+                     adapter.notifyDataSetChanged();
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -138,7 +168,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
         cancelBtn = findViewById(R.id.create_charitable_event_cancel);
         eventImgRecyclerview = findViewById(R.id.create_charitable_event_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         eventImgRecyclerview.setLayoutManager(layoutManager);
         adapter = new EventImageAdapter(imgs,this);
         eventImgRecyclerview.setAdapter(adapter);
@@ -254,7 +284,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
         address = addressET.getText().toString();
         participantsRequire = Integer.parseInt(requireET.getText().toString());
         limit = Integer.parseInt(limitET.getText().toString());
-        event = new CharitableEvent(createUser, imgs, startTime, endTime, limit, eventName, detail, org,schedule, address,participantsRequire);
+        event = new CharitableEvent(id,createUser, imgs, startTime, endTime, limit, eventName, detail, org,schedule, address,participantsRequire);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,14 +21,18 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.thuanduong.education.network.Adapter.EventImageAdapter;
 import com.thuanduong.education.network.Adapter.ViewHolder.eventImageRecyclerViewHolder;
+import com.thuanduong.education.network.Model.CharitableEvent;
 import com.thuanduong.education.network.Model.Event;
 import com.thuanduong.education.network.Model.RegisterClassEvent;
 import com.thuanduong.education.network.R;
@@ -43,7 +48,7 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
     //obj
     RegisterClassEvent event;
     //attribute
-    String createUser, name, classId,content;
+    String id = "",createUser, name, classId,content;
     int min,limit;
     long startTime, endTime;
     ArrayList<String> imgs = new ArrayList<>();
@@ -59,6 +64,7 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
         setContentView(R.layout.activity_create_class_register);
         eventRef = FirebaseDatabase.getInstance().getReference(Event.EVENT_REF);
         setViews();
+        dataSetup();
         setDefaultTime();
         clickListener();
     }
@@ -84,7 +90,28 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
                 break;
         }
     }
+    void dataSetup(){
+        if(getIntent().hasExtra("eventId")){
+            final String eventId = getIntent().getStringExtra("eventId");
+            eventRef.child(eventId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    RegisterClassEvent event = new RegisterClassEvent(dataSnapshot);
+                    id = eventId;
+                    nameET.setText(event.getName());
+                    subjectET.setText(event.getClassId());
+                    contentET.setText(event.getContent());
+                    minET.setText(event.getMin()+"");
+                    limitET.setText(event.getLimit()+"");
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
     void setViews(){
         nameET = findViewById(R.id.create_class_register_event_name);
         subjectET = findViewById(R.id.create_class_register_event_subject_id);
@@ -196,7 +223,7 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
         content = contentET.getText().toString();
         min = Integer.parseInt(minET.getText().toString());
         limit = Integer.parseInt(limitET.getText().toString());
-        event = new RegisterClassEvent(createUser, imgs, startTime, endTime, limit, name, classId, content, min) ;
+        event = new RegisterClassEvent(id,createUser, imgs, startTime, endTime, limit, name, classId, content, min) ;
     }
 
 }

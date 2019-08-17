@@ -113,7 +113,25 @@ public class EventListActivity extends AppCompatActivity implements EventRecycle
                     sendUserToListEventActivity(event.getId());
                 }
             });
-        }else h.get_list_btn.setVisibility(View.INVISIBLE);
+            h.edit_button.setVisibility(View.VISIBLE);
+            h.edit_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            h.del_button.setVisibility(View.VISIBLE);
+            h.del_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    event.remove();
+                }
+            });
+        }else {
+            h.get_list_btn.setVisibility(View.GONE);
+            h.edit_button.setVisibility(View.GONE);
+            h.del_button.setVisibility(View.GONE);
+        }
     }
 
     @Override

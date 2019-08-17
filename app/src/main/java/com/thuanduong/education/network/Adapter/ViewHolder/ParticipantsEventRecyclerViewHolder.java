@@ -7,12 +7,13 @@ import android.widget.TextView;
 import com.thuanduong.education.network.R;
 
 public class ParticipantsEventRecyclerViewHolder extends RecyclerView.ViewHolder {
-    public TextView name,phone,mssv,gender;
+    public TextView name,phone,mssv,gender,note;
     public ParticipantsEventRecyclerViewHolder(View itemView) {
         super(itemView);
         name = itemView.findViewById(R.id.user_event_item_name);
         phone = itemView.findViewById(R.id.user_event_item_phone_number);
         mssv = itemView.findViewById(R.id.user_event_item_mssv);
         gender = itemView.findViewById(R.id.user_event_item_gender);
+        note = itemView.findViewById(R.id.user_event_item_note);
     }
 }

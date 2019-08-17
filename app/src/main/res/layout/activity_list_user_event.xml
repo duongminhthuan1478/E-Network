@@ -18,13 +18,13 @@
             android:textAlignment="center"
             android:text="Name"/>
         <TextView
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/basic_border"
             android:textAlignment="center"
             android:text="Phone Number"/>
         <TextView
-            android:layout_width="150dp"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:background="@drawable/basic_border"
             android:textAlignment="center"
@@ -35,6 +35,12 @@
             android:background="@drawable/basic_border"
             android:textAlignment="center"
             android:text="gender"/>
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/basic_border"
+            android:textAlignment="center"
+            android:text="note"/>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/user_of_event_list_recyclerview"

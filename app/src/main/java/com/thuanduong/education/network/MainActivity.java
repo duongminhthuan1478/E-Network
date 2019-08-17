@@ -24,9 +24,7 @@ import com.thuanduong.education.network.Account.LoginActivity;
 import com.thuanduong.education.network.Account.ProfileActivity;
 import com.thuanduong.education.network.Account.SettingActivity;
 import com.thuanduong.education.network.Account.SetupActivity;
-import com.thuanduong.education.network.Event.CreateEventActivity;
-import com.thuanduong.education.network.Event.EventListActivity;
-import com.thuanduong.education.network.Event.MyEventActivity;
+import com.thuanduong.education.network.Event.EventsListActivity;
 import com.thuanduong.education.network.Friends_RequestFriend.FriendsActivity;
 import com.thuanduong.education.network.Model.Post;
 import com.thuanduong.education.network.News.NewsActivity;
@@ -286,10 +284,6 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.navigation_events:
                 sendUserToListEventsActivity();
-                break;
-
-            case R.id.navigation_my_event:
-                sendUserToMyEventsActivity();
                 break;
 
             case R.id.navigation_setting:
@@ -553,13 +547,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(Intent);
     }
     private void sendUserToListEventsActivity() {
-        Intent Intent = new Intent(MainActivity.this, EventListActivity.class);
+        Intent Intent = new Intent(MainActivity.this, EventsListActivity.class);
         startActivity(Intent);
     }
-    private void sendUserToMyEventsActivity() {
-        Intent Intent = new Intent(MainActivity.this, MyEventActivity.class);
-        startActivity(Intent);
-    }
+
     private void sendUserToFriendActivity() {
 //        ListFriendFragment listFriendFragment = new ListFriendFragment();
 //        FragmentManager manager = getSupportFragmentManager();

@@ -18,27 +18,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/basic_border"
+            android:background="#E3F2FD"
             android:gravity="center">
-            <ImageButton
+            <TextView
                 android:id="@+id/class_register_event_btn"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:background="@drawable/class_register_event" />
+                android:text="Đăng ký lớp học"
+                android:textColor="#ffffff"
+                android:textSize="20dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/basic_border"
+            android:background="#FFCCBC"
             android:gravity="center">
-            <ImageButton
+            <TextView
                 android:id="@+id/seminar_event_btn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/seminar_event"
-                android:layout_weight="1"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="#ffffff"
+                android:text="Seminar"
+                />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -49,25 +52,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/basic_border"
+            android:background="#FF8A80"
             android:gravity="center">
-            <ImageButton
+            <TextView
                 android:id="@+id/charitable_event_btn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/charity_event"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:text="Hiến Máu"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/basic_border"
+            android:background="#EEEEEE"
             android:gravity="center">
-            <ImageButton
+            <TextView
                 android:id="@+id/other_event_btn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/other_event"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:text="Sự kiện khác"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -51,7 +51,7 @@ public class ListUserEventActivity extends AppCompatActivity implements Particip
     void getData(){
         FirebaseDatabase
                 .getInstance()
-                .getReference("Events")
+                .getReference(Event.EVENT_REF)
                 .child(eventId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -79,5 +79,6 @@ public class ListUserEventActivity extends AppCompatActivity implements Particip
         if(participantsUser.getIsMale())
             holder.gender.setText("male");
         else    holder.gender.setText("female");
+        holder.note.setText(participantsUser.getMission());
     }
 }

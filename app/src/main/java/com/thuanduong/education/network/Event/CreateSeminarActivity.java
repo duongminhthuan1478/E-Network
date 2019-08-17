@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,8 +21,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -29,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import com.thuanduong.education.network.Adapter.EventImageAdapter;
 import com.thuanduong.education.network.Adapter.ViewHolder.eventImageRecyclerViewHolder;
 import com.thuanduong.education.network.Model.Event;
+import com.thuanduong.education.network.Model.RegisterClassEvent;
 import com.thuanduong.education.network.Model.SeminarEvent;
 import com.thuanduong.education.network.R;
 import com.thuanduong.education.network.Ultil.ShowToast;
@@ -43,7 +48,7 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
     //obj
     SeminarEvent event;
     //attribute
-    String createUser, name, org, speakers,  recmdAudien, content, address;
+    String id = "",createUser, name, org, speakers,  recmdAudien, content, address;
     int limit = 0;
     long startTime, endTime;
     ArrayList<String> imgs = new ArrayList<>();
@@ -63,6 +68,7 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_create_seminar);
         eventRef = FirebaseDatabase.getInstance().getReference(Event.EVENT_REF);
         setViews();
+        dataSetup();
         setDefaultTime();
         clickListener();
     }
@@ -125,6 +131,31 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
             });
         }
     }
+    void dataSetup(){
+        if(getIntent().hasExtra("eventId")){
+            final String eventId = getIntent().getStringExtra("eventId");
+            eventRef.child(eventId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    SeminarEvent event = new SeminarEvent(dataSnapshot);
+                    id = eventId;
+                    nameET.setText(event.getName());
+                    orgET.setText(event.getOrg());
+                    speakerET.setText(event.getSpeakers());
+                    recmdAudienceET.setText(event.getRecmdAudien());
+                    contentET.setText(event.getContent());
+                    addressET.setText(event.getAddress());
+                    imgs.addAll(event.getImgs());
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
     void setViews(){
         nameET = findViewById(R.id.create_seminar_event_name);
         orgET = findViewById(R.id.create_seminar_event_org);
@@ -138,7 +169,7 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
         cancelBtn = findViewById(R.id.create_seminar_event_cancel);
         eventImgRecyclerview = findViewById(R.id.create_seminar_event_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         eventImgRecyclerview.setLayoutManager(layoutManager);
         adapter = new EventImageAdapter(imgs,this);
         eventImgRecyclerview.setAdapter(adapter);
@@ -253,7 +284,7 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
         content = contentET.getText().toString();
         address = addressET.getText().toString();
         limit = 0;
-        event = new SeminarEvent(createUser, imgs, startTime, endTime, limit, name, org, speakers, recmdAudien, content, address);
+        event = new SeminarEvent(id,createUser, imgs, startTime, endTime, limit, name, org, speakers, recmdAudien, content, address);
     }
 
     @Override

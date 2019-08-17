@@ -17,8 +17,8 @@ public class SeminarEvent extends Event {
     public static final String eventType = "SeminarEvent";
 
 
-    public SeminarEvent(String createUser, ArrayList<String> imgs, long startTime, long endTime, int limit, String name, String org, String speakers, String recmdAudien, String content, String address) {
-        super(createUser, imgs, startTime, endTime, limit);
+    public SeminarEvent(String id,String createUser, ArrayList<String> imgs, long startTime, long endTime, int limit, String name, String org, String speakers, String recmdAudien, String content, String address) {
+        super(id,createUser, imgs, startTime, endTime, limit);
         this.name = name;
         this.org = org;
         this.speakers = speakers;
@@ -83,8 +83,21 @@ public class SeminarEvent extends Event {
         return content;
     }
 
+    public String getType(){
+        return eventType;
+    }
 
     // getter & setter
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getOrg() {
         return org;
     }

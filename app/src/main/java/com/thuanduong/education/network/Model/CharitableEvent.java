@@ -19,8 +19,8 @@ public class CharitableEvent extends Event  {
     int participantsRequire;
     public static final String eventType = "CharitableEvent";
 
-    public CharitableEvent(String createUser, ArrayList<String> imgs, long startTime, long endTime, int limit, String name, String detail, String org, String schedule, String address, int participantsRequire) {
-        super(createUser, imgs, startTime, endTime, limit);
+    public CharitableEvent(String id,String createUser, ArrayList<String> imgs, long startTime, long endTime, int limit, String name, String detail, String org, String schedule, String address, int participantsRequire) {
+        super(id,createUser, imgs, startTime, endTime, limit);
         this.name = name;
         this.detail = detail;
         this.org = org;
@@ -36,6 +36,7 @@ public class CharitableEvent extends Event  {
         this.org =dataSnapshot.child(ORG).getValue().toString();
         this.schedule = dataSnapshot.child(SCHEDULE).getValue().toString();
         this.address = dataSnapshot.child(ADDRESS).getValue().toString();
+
         this.participantsRequire = Integer.parseInt(dataSnapshot.child(PARTICIPANTS_REQ).getValue().toString());
     }
 
@@ -78,6 +79,10 @@ public class CharitableEvent extends Event  {
     @Override
     public String getEventContent(){
         return detail;
+    }
+
+    public String getType(){
+        return eventType;
     }
 
     //getter & setter
