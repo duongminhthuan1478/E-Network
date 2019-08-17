@@ -16,6 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ChatBotActivity"></activity>
         <activity android:name=".News.NewsDetailActivity" />
         <activity android:name=".News.NewsActivity" />
         <activity android:name=".MainActivity" />
