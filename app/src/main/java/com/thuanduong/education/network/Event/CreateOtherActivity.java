@@ -64,6 +64,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
     ArrayList<String> imgs = new ArrayList<>();
     ArrayList<EventMission> missions = new ArrayList<>();
     //view
+    TextView startTv,endTv;
     EditText nameET,detailET,orgET,addressET;
     Button startBtn,endBtn,submitBtn,cancelBtn;
     ImageButton addMissionBtn;
@@ -179,7 +180,9 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         orgET = findViewById(R.id.create_other_event_org);
         addressET = findViewById(R.id.create_other_event_address);
         startBtn = findViewById(R.id.create_other_event_start);
+        startTv = findViewById(R.id.create_other_event_start_tv);
         endBtn = findViewById(R.id.create_other_event_end);
+        endTv = findViewById(R.id.create_other_event_end_tv);
         submitBtn = findViewById(R.id.create_other_event_submit);
         cancelBtn = findViewById(R.id.create_other_event_cancel);
         addMissionBtn = findViewById(R.id.create_other_event_mission_add_btn);
@@ -237,6 +240,9 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
                     if(endTime < startTime) {
                         ShowToast.showToast(CreateOtherActivity.this,"this can't end before it's begin");
                     }
+                    else {
+                        startTv.setText(Time.timeRemaining(startTime));
+                    }
                 }
                 else ShowToast.showToast(CreateOtherActivity.this,"Not selected in the past");
             }
@@ -267,6 +273,9 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
                     endTime =date+ ( hour * 60000 * 60 + min * 60000 );
                     if(endTime < startTime) {
                         ShowToast.showToast(CreateOtherActivity.this,"this can't end before it's begin");
+                    }
+                    else {
+                        endTv.setText(Time.timeToString(endTime));
                     }
                 }
                 else ShowToast.showToast(CreateOtherActivity.this,"Not selected in the past");

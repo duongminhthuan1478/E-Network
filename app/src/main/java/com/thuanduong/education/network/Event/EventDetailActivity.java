@@ -1,12 +1,15 @@
 package com.thuanduong.education.network.Event;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,7 +27,8 @@ import com.thuanduong.education.network.R;
 
 public class EventDetailActivity extends AppCompatActivity implements View.OnClickListener {
     TextView summary;
-    Button join,left;
+    LinearLayout linearLayout;
+    Button join,left,list,edit,del;
     Event event;
     String id;
     FirebaseAuth mAuth;
@@ -77,6 +81,18 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
         join.setOnClickListener(this);
         left = findViewById(R.id.event_detail_left_btn);
         left.setOnClickListener(this);
+        linearLayout = findViewById(R.id.edit_layout);
+        list = findViewById(R.id.detail_event_list);
+        list.setOnClickListener(this);
+        edit = findViewById(R.id.detail_event_edit);
+        edit.setOnClickListener(this);
+        del = findViewById(R.id.detail_event_del);
+        del.setOnClickListener(this);
+
+        if(event.isCreator(mAuth.getCurrentUser().getUid())){
+            linearLayout.setVisibility(View.VISIBLE);
+        }else linearLayout.setVisibility(View.GONE);
+
         if(event.isJoined(mAuth.getCurrentUser().getUid())){
             join.setVisibility(View.INVISIBLE);
             left.setVisibility(View.VISIBLE);
@@ -94,6 +110,15 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.event_detail_left_btn:
                 leftEvent();
+                break;
+            case R.id.detail_event_list:
+                sendUserToListEventActivity(event.getId());
+                break;
+            case R.id.detail_event_edit:
+                editEvent(event);
+                break;
+            case R.id.detail_event_del:
+                delete();
                 break;
         }
     }
@@ -117,4 +142,60 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setTitle("Chi Tiết Sự Kiện");
     }
 
+    private void sendUserToListEventActivity(String eventId){
+        Intent intent = new Intent(this, ListUserEventActivity.class);
+        intent.putExtra("eventId",eventId);
+        startActivity(intent);
+    }
+    void sendUsertoCreateOtherActivity(){
+        Intent intent = new Intent(this, CreateOtherActivity.class);
+        intent.putExtra("eventId",event.getId());
+        startActivity(intent);
+    }
+    void sendUsertoCreateCharitableActivity(){
+        Intent intent = new Intent(this, CreateCharitableActivity.class);
+        intent.putExtra("eventId",event.getId());
+        startActivity(intent);
+    }
+    void sendUsertoCreateClassRegisterActivity(){
+        Intent intent = new Intent(this, CreateClassRegisterActivity.class);
+        intent.putExtra("eventId",event.getId());
+        startActivity(intent);
+    }
+    void sendUsertoCreateSeminarActivity(){
+        Intent intent = new Intent(this, CreateSeminarActivity.class);
+        intent.putExtra("eventId",event.getId());
+        startActivity(intent);
+    }
+    private void editEvent(Event event) {
+        switch (event.getType()){
+            case CharitableEvent.eventType:
+                sendUsertoCreateCharitableActivity();
+                break;
+            case RegisterClassEvent.eventType:
+                sendUsertoCreateClassRegisterActivity();
+                break;
+            case SeminarEvent.eventType:
+                sendUsertoCreateSeminarActivity();
+                break;
+            case OtherEvent.eventType:
+                sendUsertoCreateOtherActivity();
+                break;
+        }
+    }
+    private void delete(){
+        new AlertDialog.Builder(this)
+                .setTitle("Xóa sự kiện")
+                .setMessage("bạn có chắc chắn muốn hủy sự kiện k ?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        event.remove();
+                        finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
+    }
 }

@@ -45,21 +45,42 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="5dp">
-                <Button
-                    android:id="@+id/create_other_event_start"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:text="start"/>
+                    android:orientation="vertical">
+                    <Button
+                        android:id="@+id/create_other_event_start"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="start"/>
+                    <TextView
+                        android:id="@+id/create_other_event_start_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ngày bắt đầu "/>
 
-                <Button
-                    android:id="@+id/create_other_event_end"
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:text="end"/>
+                    android:orientation="vertical">
+                    <Button
+                        android:id="@+id/create_other_event_end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="end"/>
+                    <TextView
+                        android:id="@+id/create_other_event_end_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ngày kết thúc "/>
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

@@ -27,9 +27,9 @@
         <ImageButton
             android:id="@+id/chat_bot_activity_send"
             android:layout_width="50dp"
-            android:layout_height="50dp"
             android:background="#ffffff"
-            tools:src="@drawable/ic_send_message" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_send_message"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -26,13 +26,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="JOIN"
+        android:text="tham gia"
+        android:background="@drawable/button_blue"
+        android:textColor="@android:color/white"
         android:visibility="invisible"/>
     <Button
         android:id="@+id/event_detail_left_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="left"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button"
+        android:textColor="@android:color/white"
+        android:text="hủy tham gia"
+
         android:visibility="invisible"/>
+    <LinearLayout
+        android:id="@+id/edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <Button
+            android:id="@+id/detail_event_list"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Danh sách"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_blue"
+            android:textColor="@android:color/white"
+            />
+        <Button
+            android:id="@+id/detail_event_edit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="cập nhật"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_blue"
+            android:textColor="@android:color/white"
+            />
+        <Button
+            android:id="@+id/detail_event_del"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:text="xóa"
+            android:background="@drawable/button"
+            android:textColor="@android:color/white"
+            />
+    </LinearLayout>
+
 </LinearLayout>

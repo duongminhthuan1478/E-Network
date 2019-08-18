@@ -124,88 +124,16 @@ public class MyEventListFragment extends Fragment implements EventRecyclerViewAd
         h.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                missionOption(event);
+                sendUserToEventDetailActivity(event.getId());
             }
         });
     }
 
-    private void editEvent(Event event) {
-        switch (event.getType()){
-            case CharitableEvent.eventType:
-                sendUsertoCreateCharitableActivity(event);
-                break;
-            case RegisterClassEvent.eventType:
-                sendUsertoCreateClassRegisterActivity(event);
-                break;
-            case SeminarEvent.eventType:
-                sendUsertoCreateSeminarActivity(event);
-                break;
-            case OtherEvent.eventType:
-                sendUsertoCreateOtherActivity(event);
-                break;
-        }
-    }
 
-    private void sendUserToCreateEventActivity(){
-        Intent Intent = new Intent(context, CreateEventActivity.class);
-        startActivity(Intent);
-    }
     private void sendUserToEventDetailActivity(String eventId){
         Intent Intent = new Intent(context, EventDetailActivity.class);
         Intent.putExtra("eventId",eventId);
         startActivity(Intent);
     }
-    private void sendUserToListEventActivity(String eventId){
-        Intent intent = new Intent(context, ListUserEventActivity.class);
-        intent.putExtra("eventId",eventId);
-        startActivity(intent);
-    }
-    void sendUsertoCreateOtherActivity(Event event){
-        Intent intent = new Intent(context, CreateOtherActivity.class);
-        intent.putExtra("eventId",event.getId());
-        startActivity(intent);
-    }
-    void sendUsertoCreateCharitableActivity(Event event){
-        Intent intent = new Intent(context, CreateCharitableActivity.class);
-        intent.putExtra("eventId",event.getId());
-        startActivity(intent);
-    }
-    void sendUsertoCreateClassRegisterActivity(Event event){
-        Intent intent = new Intent(context, CreateClassRegisterActivity.class);
-        intent.putExtra("eventId",event.getId());
-        startActivity(intent);
-    }
-    void sendUsertoCreateSeminarActivity(Event event){
-        Intent intent = new Intent(context, CreateSeminarActivity.class);
-        intent.putExtra("eventId",event.getId());
-        startActivity(intent);
-    }
-    void missionOption(final Event event){
-        String[] CreatorAdapter = {"detail","list","edit","delete"};
-        String[] UncreatorAdapter = {"detail"};
-        String[] adapter = (event.isCreator( mAuth.getCurrentUser().getUid())) ? CreatorAdapter : UncreatorAdapter;
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context,android.R.layout.select_dialog_item,adapter);
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("option :");
-        builder.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                switch (i){
-                    case 0:
-                        sendUserToEventDetailActivity(event.getId());
-                        break;
-                    case 1:
-                        sendUserToListEventActivity(event.getId());
-                        break;
-                    case 2:
-                        editEvent(event);
-                        break;
-                    case 3:
-                        event.remove();
-                        break;
-                }
-            }
-        });
-        builder.show();
-    }
+
 }

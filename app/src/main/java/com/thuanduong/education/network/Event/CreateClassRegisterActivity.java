@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
     long startTime, endTime;
     ArrayList<String> imgs = new ArrayList<>();
     //view
+    TextView startTv,endTv;
     EditText nameET,subjectET,contentET,minET,limitET;
     Button startBtn,endBtn,submitBtn,cancelBtn;
     //auth
@@ -121,7 +123,9 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
         minET = findViewById(R.id.create_class_register_event_min);
         limitET = findViewById(R.id.create_class_register_event_limit);
         startBtn = findViewById(R.id.create_class_register_event_start);
+        startTv = findViewById(R.id.create_class_register_event_start_tv);
         endBtn = findViewById(R.id.create_class_register_event_end);
+        endTv = findViewById(R.id.create_class_register_event_end_tv);
         submitBtn = findViewById(R.id.create_class_register_event_submit);
         cancelBtn = findViewById(R.id.create_class_register_event_cancel);
         actionBar();
@@ -163,6 +167,9 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
                     if(endTime < startTime) {
                         ShowToast.showToast(CreateClassRegisterActivity.this,"this can't end before it's begin");
                     }
+                    else {
+                        startTv.setText(Time.timeRemaining(startTime));
+                    }
                 }
                 else ShowToast.showToast(CreateClassRegisterActivity.this,"Not selected in the past");
             }
@@ -193,6 +200,9 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
                     endTime =date+ ( hour * 60000 * 60 + min * 60000 );
                     if(endTime < startTime) {
                         ShowToast.showToast(CreateClassRegisterActivity.this,"this can't end before it's begin");
+                    }else {
+
+                        endTv.setText(Time.timeToString(endTime));
                     }
                 }
                 else ShowToast.showToast(CreateClassRegisterActivity.this,"Not selected in the past");

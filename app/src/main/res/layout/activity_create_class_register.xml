@@ -45,6 +45,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="start"/>
+                <TextView
+                    android:id="@+id/create_class_register_event_start_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ngày bắt đầu"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,6 +64,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="end"/>
+                <TextView
+                    android:id="@+id/create_class_register_event_end_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ngày kết thúc"/>
             </LinearLayout>
 
             <EditText

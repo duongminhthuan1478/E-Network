@@ -58,21 +58,46 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:orientation="horizontal">
-                <Button
-                    android:id="@+id/create_seminar_event_start"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:text="start date"/>
+                    android:orientation="vertical">
+                    <Button
+                        android:id="@+id/create_seminar_event_start"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="start date"/>
+                    <TextView
+                        android:id="@+id/create_seminar_event_start_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="ngày bắt đầu"
+                        />
+                </LinearLayout>
 
-                <Button
-                    android:id="@+id/create_seminar_event_end"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:text="end date"/>
+                    android:orientation="vertical">
+                    <Button
+                        android:id="@+id/create_seminar_event_end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="end date"/>
+                    <TextView
+                        android:id="@+id/create_seminar_event_end_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="ngày kết thúc"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/create_seminar_event_recyclerview"

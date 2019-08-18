@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
     long startTime, endTime;
     ArrayList<String> imgs = new ArrayList<>();
     //view
+    TextView startTv,endTv;
     EditText nameET,detailET,scheduleET,orgET,addressET,requireET,limitET;
     Button startBtn,endBtn,submitBtn,cancelBtn;
     RecyclerView eventImgRecyclerview;
@@ -165,7 +167,9 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
         requireET =findViewById(R.id.create_charitable_event_require);
         limitET = findViewById(R.id.create_charitable_event_limit);
         startBtn = findViewById(R.id.create_charitable_event_start);
+        startTv = findViewById(R.id.create_charitable_event_start_tv);
         endBtn = findViewById(R.id.create_charitable_event_end);
+        endTv = findViewById(R.id.create_charitable_event_end_tv);
         submitBtn = findViewById(R.id.create_charitable_event_submit);
         cancelBtn = findViewById(R.id.create_charitable_event_cancel);
         eventImgRecyclerview = findViewById(R.id.create_charitable_event_recyclerview);
@@ -214,6 +218,11 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
                     if(endTime < startTime) {
                         ShowToast.showToast(CreateCharitableActivity.this,"this can't end before it's begin");
                     }
+                    else {
+
+                        ShowToast.showToast(CreateCharitableActivity.this,Time.timeRemaining(startTime));
+                        startTv.setText(Time.timeRemaining(startTime));
+                    }
                 }
                 else ShowToast.showToast(CreateCharitableActivity.this,"Not selected in the past");
             }
@@ -244,6 +253,11 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
                     endTime =date+ ( hour * 60000 * 60 + min * 60000 );
                     if(endTime < startTime) {
                         ShowToast.showToast(CreateCharitableActivity.this,"this can't end before it's begin");
+                    }
+                    else {
+
+                        ShowToast.showToast(CreateCharitableActivity.this,Time.timeRemaining(endTime));
+                        endTv.setText(Time.timeToString(endTime));
                     }
                 }
                 else ShowToast.showToast(CreateCharitableActivity.this,"Not selected in the past");

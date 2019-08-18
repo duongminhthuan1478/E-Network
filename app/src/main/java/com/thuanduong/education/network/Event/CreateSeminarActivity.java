@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
     long startTime, endTime;
     ArrayList<String> imgs = new ArrayList<>();
     //view
+    TextView startTv,endTv;
     EditText nameET,orgET,speakerET,recmdAudienceET,contentET,addressET;
     Button startBtn,endBtn,submitBtn,cancelBtn;
     RecyclerView eventImgRecyclerview;
@@ -166,7 +168,9 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
         contentET = findViewById(R.id.create_seminar_event_content);
         addressET = findViewById(R.id.create_seminar_event_address);
         startBtn = findViewById(R.id.create_seminar_event_start);
+        startTv = findViewById(R.id.create_seminar_event_start_tv);
         endBtn = findViewById(R.id.create_seminar_event_end);
+        endTv = findViewById(R.id.create_seminar_event_end_tv);
         submitBtn = findViewById(R.id.create_seminar_event_submit);
         cancelBtn = findViewById(R.id.create_seminar_event_cancel);
         eventImgRecyclerview = findViewById(R.id.create_seminar_event_recyclerview);
@@ -213,6 +217,8 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
                     startTime =date+ ( hour * 60000 * 60 + min * 60000 );
                     if(endTime < startTime) {
                         ShowToast.showToast(CreateSeminarActivity.this,"this can't end before it's begin");
+                    }else {
+                        startTv.setText(Time.timeRemaining(startTime));
                     }
                 }
                 else ShowToast.showToast(CreateSeminarActivity.this,"Not selected in the past");
@@ -245,7 +251,9 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
                     if(endTime < startTime) {
                         ShowToast.showToast(CreateSeminarActivity.this,"this can't end before it's begin");
                     }
-                }
+                    else {
+                        endTv.setText(Time.timeToString(endTime));
+                    }                }
                 else ShowToast.showToast(CreateSeminarActivity.this,"Not selected in the past");
             }
         },calendar.get(calendar.HOUR_OF_DAY),calendar.get(calendar.MINUTE),true);

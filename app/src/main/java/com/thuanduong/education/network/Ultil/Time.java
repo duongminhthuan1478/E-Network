@@ -83,6 +83,13 @@ public class Time {
             }
         }
     }
+    public static String timeToString(long input)
+    {
+        Date currentTime = Calendar.getInstance().getTime();
+        long now = currentTime.getTime();
+        Date date = new Date(input);
+        return ""+android.text.format.DateFormat.format(" hh:mm:ss a dd-MM-yyyy ", date);
+    }
     public static String LongtoTime(long input)
     {
         Date date = new Date(input);
