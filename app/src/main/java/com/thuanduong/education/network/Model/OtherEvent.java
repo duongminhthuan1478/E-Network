@@ -186,7 +186,7 @@ public class OtherEvent extends Event {
     public String getMissionList(){
         String result ="";
         for (EventMission eventMission:missions) {
-            result +="\n-"+eventMission.getName()+"("+countMissionSlotRemaning(eventMission.getName())+"/"+eventMission.getAmount()+")";
+            result +="\n-"+eventMission.getName()+"("+countMissionPartner(eventMission.getName())+"/"+eventMission.getAmount()+")";
         }
         return result;
     }
