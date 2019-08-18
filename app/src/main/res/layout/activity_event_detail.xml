@@ -6,79 +6,435 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Event.EventDetailActivity">
-    <include android:id="@+id/event_detail_activity_toolbar"
-        layout="@layout/app_bar_layout">
-    </include>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="NỘI DUNG SỰ KIỆN"
-        android:textSize="20dp" />
-    <TextView
-        android:id="@+id/event_detail_summary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="18dp" />
-    <Button
-        android:id="@+id/event_detail_join_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="tham gia"
-        android:background="@drawable/button_blue"
-        android:textColor="@android:color/white"
-        android:visibility="invisible"/>
-    <Button
-        android:id="@+id/event_detail_left_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/button"
-        android:textColor="@android:color/white"
-        android:text="hủy tham gia"
 
-        android:visibility="invisible"/>
-    <LinearLayout
-        android:id="@+id/edit_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
-        <Button
-            android:id="@+id/detail_event_list"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Danh sách"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:background="@drawable/button_blue"
-            android:textColor="@android:color/white"
-            />
-        <Button
-            android:id="@+id/detail_event_edit"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="cập nhật"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:background="@drawable/button_blue"
-            android:textColor="@android:color/white"
-            />
-        <Button
-            android:id="@+id/detail_event_del"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:text="xóa"
-            android:background="@drawable/button"
-            android:textColor="@android:color/white"
-            />
-    </LinearLayout>
+    <include
+        android:id="@+id/event_detail_activity_toolbar"
+        layout="@layout/app_bar_layout"></include>
 
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/event_detail_img"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"
+                android:src="@color/common_google_signin_btn_text_light_default"
+                />
+
+            <TextView
+                android:id="@+id/event_detail_name_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:text="Tên Sự Kiện"
+                android:textColor="@android:color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+            <!-- Mã môn -->
+            <LinearLayout
+                android:id="@+id/event_detail_class_id_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mã môn : "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_class_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="nội dung"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- vài dòng năn nỉ -->
+            <LinearLayout
+                android:id="@+id/event_detail_beg_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vài dòng năn nỉ : "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_beg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="nội dung"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- Thong tin chi tiet -->
+            <LinearLayout
+                android:id="@+id/event_detail_detail_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thông tin chi tiết: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nội dung thông tin chi tiết "
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- Đơn vị tổ chức -->
+            <LinearLayout
+                android:id="@+id/event_detail_org_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đơn vị tổ chức: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_org"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nội dung đơn vị tổ chức "
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- những người trình bày -->
+            <LinearLayout
+                android:id="@+id/event_detail_speaker_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Diễn giả : "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_speaker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="nội dung"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- những người nên tham gia -->
+            <LinearLayout
+                android:id="@+id/event_detail_recmd_audience_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Những người nên tham gia: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_recmd_audience"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="nội dung"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- nội dung chương trình -->
+            <LinearLayout
+                android:id="@+id/event_detail_content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nội dung chương trình: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="nội dung"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- Lịch trình cụ thể -->
+            <LinearLayout
+                android:id="@+id/event_detail_schedule_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lịch trình cụ thể: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_schedule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="nội dung"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <!-- Địa chỉ  -->
+            <LinearLayout
+                android:id="@+id/event_detail_address_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Địa Chỉ: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nội dung địa chỉ"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- minimum  -->
+            <LinearLayout
+                android:id="@+id/event_detail_minimum_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số lượng yêu cầu : "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_minimum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="số lượng"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- limit -->
+            <LinearLayout
+                android:id="@+id/event_detail_limit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số lượng giới hạn: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số lượng"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- joined -->
+            <LinearLayout
+                android:id="@+id/event_detail_joined_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đã tham gia: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_joined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số lượng"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- Ngày giờ bắt đầu  -->
+            <LinearLayout
+                android:id="@+id/event_detail_start_time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày bắt đầu: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hiển thị ngày giờ bắt đầu"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- Ngày giờ kết thúc  -->
+            <LinearLayout
+                android:id="@+id/event_detail_end_time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày kết thúc: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/event_detail_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hiển thị ngày giờ kết thúc"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <!-- mission-->
+            <TextView
+                android:id="@+id/event_detail_mission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Nhiệm vụ: "
+                android:textSize="18sp"
+                android:visibility="gone" />
+            <!-- TODO: Hiển thị list checkbox mission ở đây + số slot còn lại-->
+            <Button
+                android:id="@+id/event_detail_join_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/button_blue"
+                android:text="tham gia"
+                android:textColor="@android:color/white"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/event_detail_left_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button"
+                android:text="hủy tham gia"
+                android:textColor="@android:color/white"
+
+                android:visibility="invisible" />
+
+            <LinearLayout
+                android:id="@+id/edit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/detail_event_list"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_blue"
+                    android:text="Danh sách"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/detail_event_edit"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_blue"
+                    android:text="cập nhật"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/detail_event_del"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:text="xóa"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>

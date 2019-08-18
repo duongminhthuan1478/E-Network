@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.thuanduong.education.network.ChatBotActivity;
 import com.thuanduong.education.network.R;
 
 public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView classRegisterBtn,charityBtn,seminarBtn,otherBtn;
+    private LinearLayout classRegisterBtn,charityBtn,seminarBtn,otherBtn;
     private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

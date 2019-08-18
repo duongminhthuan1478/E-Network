@@ -69,7 +69,6 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
         eventRef = FirebaseDatabase.getInstance().getReference(Event.EVENT_REF);
         setViews();
         dataSetup();
-        setDefaultTime();
         clickListener();
     }
     @Override
@@ -137,11 +136,6 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
         cancelBtn.setOnClickListener(this);
     }
 
-    void setDefaultTime(){
-        long tomorrow = Time.getCur()+86400000l;
-        startTime = tomorrow;
-        endTime = tomorrow + 30000;
-    }
 
     private void setStartdate()
     {
@@ -161,15 +155,10 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
         TimePickerDialog timePickerDialog =new TimePickerDialog(CreateClassRegisterActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int min) {
-                if(date+ ( hour * 60000 * 60 + min * 60000 )> Time.getCur())//+(6*86400000))
+                if(date+ ( hour * 60000 * 60 + min * 60000 ) > Time.getCur())//+(6*86400000))
                 {
                     startTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    if(endTime < startTime) {
-                        ShowToast.showToast(CreateClassRegisterActivity.this,"this can't end before it's begin");
-                    }
-                    else {
-                        startTv.setText(Time.timeRemaining(startTime));
-                    }
+                    startTv.setText(Time.timeToString(startTime));
                 }
                 else ShowToast.showToast(CreateClassRegisterActivity.this,"Not selected in the past");
             }
@@ -180,7 +169,7 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
     private void setEndDate()
     {
         final Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(calendar.getTimeInMillis()+86400000);
+        calendar.setTimeInMillis(calendar.getTimeInMillis());
         new DatePickerDialog(CreateClassRegisterActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -198,12 +187,7 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
                 if(date+ ( hour * 60000 * 60 + min * 60000 )> Time.getCur())//+(6*86400000))
                 {
                     endTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    if(endTime < startTime) {
-                        ShowToast.showToast(CreateClassRegisterActivity.this,"this can't end before it's begin");
-                    }else {
-
-                        endTv.setText(Time.timeToString(endTime));
-                    }
+                    endTv.setText(Time.timeToString(endTime));
                 }
                 else ShowToast.showToast(CreateClassRegisterActivity.this,"Not selected in the past");
             }

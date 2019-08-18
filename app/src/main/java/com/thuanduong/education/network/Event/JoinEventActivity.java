@@ -6,12 +6,19 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +27,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.thuanduong.education.network.Adapter.JoinedEventMissionAdapter;
+import com.thuanduong.education.network.Adapter.ParticipantsEventRecyclerViewAdapter;
+import com.thuanduong.education.network.Adapter.ViewHolder.JoinedEventMissionViewHolder;
 import com.thuanduong.education.network.MainActivity;
 import com.thuanduong.education.network.Model.CharitableEvent;
 import com.thuanduong.education.network.Model.Event;
@@ -32,17 +42,24 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-public class JoinEventActivity extends AppCompatActivity implements View.OnClickListener {
+public class JoinEventActivity extends AppCompatActivity implements View.OnClickListener, JoinedEventMissionAdapter.ViewAdapterInterface {
     String eventId = "";
+    TextView missionTv;
     RadioButton male,female;
     EditText phoneNumberET,nameET,mssvET;
     Button submit,cancel;
+    RecyclerView recyclerView;
+    LinearLayout missionCol;
+    //
+    ArrayList<EventMission> eventMissions = new ArrayList<>();
+    ArrayList<EventMission> myMissions = new ArrayList<>();
+    JoinedEventMissionAdapter Adapter;
     //firebase
     FirebaseAuth mAuth;
     private DatabaseReference mUserDatabaseRef;
     //
     ParticipantsUser participantsUser;
-    String userId,sdt,name,userName=null,mssv,mission=null;
+    String userId,sdt,name,userName=null,mssv;
     boolean isMale,isOtherEvent = false;
     OtherEvent otherEvent ;
     @Override
@@ -51,11 +68,24 @@ public class JoinEventActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_join_event);
         mAuth = FirebaseAuth.getInstance();
         mUserDatabaseRef = FirebaseDatabase.getInstance().getReference("Users");
-        viewSetup();
         getEventId();
         getEventData();
     }
     void viewSetup(){
+        missionTv = findViewById(R.id.join_event_mission_tv);
+        missionCol = findViewById(R.id.join_event_mission_col);
+        recyclerView = findViewById(R.id.join_event_mission_recyclerview);
+        if(isOtherEvent) {
+            eventMissions.addAll(otherEvent.vacantMissionList());
+            missionTv.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+            missionCol.setVisibility(View.VISIBLE);
+        }
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        Adapter = new JoinedEventMissionAdapter(eventMissions,this);
+        recyclerView.setAdapter(Adapter);
         male = findViewById(R.id.radioButton_male);
         female = findViewById(R.id.radioButton_female);
         phoneNumberET = findViewById(R.id.join_event_phonenumber);
@@ -86,6 +116,7 @@ public class JoinEventActivity extends AppCompatActivity implements View.OnClick
                 if(isOtherEvent = dataSnapshot.child(Event.EVENT_TYPE).getValue().toString().equals(OtherEvent.eventType)){
                     otherEvent = new OtherEvent(dataSnapshot);
                 }
+                viewSetup();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -117,15 +148,21 @@ public class JoinEventActivity extends AppCompatActivity implements View.OnClick
         name = nameET.getText().toString();
         userName = userName==null ?nameET.getText().toString() :userName;
         mssv = mssvET.getText().toString();
-        participantsUser = new ParticipantsUser(userId,sdt,name,isMale,userName,mssv,mission);
+        participantsUser = new ParticipantsUser(userId,sdt,name,isMale,userName,mssv,myMissions);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.join_event_submit:
-                if(isOtherEvent)
-                    missionOption();
+                if(isOtherEvent) {
+                    if(checkData()){
+                        getData();
+                        submit();
+                        participantsUser.submit(eventId);
+                        finish();
+                    }
+                }
                 else if(checkInputData()){
                     getData();
                     participantsUser.submit(eventId);
@@ -154,22 +191,69 @@ public class JoinEventActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
+    boolean checkData(){
+        boolean check = true;
+        for (EventMission e:myMissions) {
+            check &= otherEvent.countMissionSlotRemaning(e.getName()) >= e.amount;
+        }
+        return check;
+    }
 
-    void missionOption(){
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item,otherEvent.vacantMissionList());
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("option :");
-        builder.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+    void submit(){
+
+    }
+
+    @Override
+    public void onBindViewHolder(final JoinedEventMissionViewHolder holder, ArrayList<EventMission> eventMissions, int position) {
+        final EventMission eventMission = eventMissions.get(position);
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if(checkInputData()){
-                    mission = otherEvent.vacantMissionList().get(i);
-                    getData();
-                    participantsUser.submit(eventId);
-                }
-                finish();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                holder.input.setFocusable(isChecked);
+                if(!isChecked) deleteMission(eventMission.getName());
             }
         });
-        builder.show();
+        holder.input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                int number = 0;
+                if(text.length() > 0 && TextUtils.isDigitsOnly(s))
+                {
+                    number = Integer.parseInt(text);
+                }
+                addMyMission(eventMission.getName(),number);
+            }
+        });
+        holder.name.setText(eventMission.getName());
+        holder.amount.setText(eventMission.getAmount()+"");
+        holder.had.setText(this.otherEvent.countMissionPartner(eventMission.getName())+"");
+    }
+    void addMyMission(String missionName,int amount){
+        for(EventMission e:myMissions){
+            if(e.getName().equals(missionName)){
+                e.setAmount(amount);
+                return;
+            }
+        }
+        myMissions.add(new EventMission(missionName,amount));
+    }
+    void deleteMission(String missionName){
+        for(int i=0;i<myMissions.size();i++){
+            if(myMissions.get(i).getName().equals(missionName)){
+                myMissions.remove(i);
+                return;
+            }
+        }
     }
 }

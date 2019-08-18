@@ -16,6 +16,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
         <LinearLayout
+            android:id="@+id/class_register_event_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -30,7 +31,6 @@
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_event_class"/>
             <TextView
-                android:id="@+id/class_register_event_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đăng ký lớp học"
@@ -39,6 +39,7 @@
                 android:textSize="20dp"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/seminar_event_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -55,7 +56,6 @@
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_event_presentation"/>
             <TextView
-                android:id="@+id/seminar_event_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
@@ -66,6 +66,7 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/charitable_event_btn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
@@ -86,7 +87,6 @@
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_event_give_blood"/>
             <TextView
-                android:id="@+id/charitable_event_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
@@ -95,6 +95,7 @@
                 android:text="Hiến Máu"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/other_event_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -110,7 +111,6 @@
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_event_others"/>
             <TextView
-                android:id="@+id/other_event_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"

@@ -84,7 +84,6 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         eventRef = FirebaseDatabase.getInstance().getReference(Event.EVENT_REF);
         setViews();
         dataSetup();
-        setDefaultTime();
         clickListener();
     }
     @Override
@@ -210,16 +209,10 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         addMissionBtn.setOnClickListener(this);
     }
 
-    void setDefaultTime(){
-        long tomorrow = Time.getCur()+86400000l;
-        startTime = tomorrow;
-        endTime = tomorrow + 30000;
-    }
-
     private void setStartdate()
     {
         final Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(calendar.getTimeInMillis()+86400000);
+        calendar.setTimeInMillis(calendar.getTimeInMillis());
         new DatePickerDialog(CreateOtherActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -234,15 +227,10 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         TimePickerDialog timePickerDialog =new TimePickerDialog(CreateOtherActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int min) {
-                if(date+ ( hour * 60000 * 60 + min * 60000 )> Time.getCur())//+(6*86400000))
+                if(date+ ( hour * 60000 * 60 + min * 60000 ) > Time.getCur())//+(6*86400000))
                 {
                     startTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    if(endTime < startTime) {
-                        ShowToast.showToast(CreateOtherActivity.this,"this can't end before it's begin");
-                    }
-                    else {
-                        startTv.setText(Time.timeRemaining(startTime));
-                    }
+                    startTv.setText(Time.timeToString(startTime));
                 }
                 else ShowToast.showToast(CreateOtherActivity.this,"Not selected in the past");
             }
@@ -253,7 +241,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
     private void setEndDate()
     {
         final Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(calendar.getTimeInMillis()+86400000);
+        calendar.setTimeInMillis(calendar.getTimeInMillis());
         new DatePickerDialog(CreateOtherActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -271,12 +259,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
                 if(date+ ( hour * 60000 * 60 + min * 60000 )> Time.getCur())//+(6*86400000))
                 {
                     endTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    if(endTime < startTime) {
-                        ShowToast.showToast(CreateOtherActivity.this,"this can't end before it's begin");
-                    }
-                    else {
-                        endTv.setText(Time.timeToString(endTime));
-                    }
+                    endTv.setText(Time.timeToString(endTime));
                 }
                 else ShowToast.showToast(CreateOtherActivity.this,"Not selected in the past");
             }
@@ -378,11 +361,13 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String name = et_name.getText().toString();
-                int amount = Integer.parseInt(et_amount.getText().toString());
-                EventMission eventMission = new EventMission(name,amount);
-                missions.add(eventMission);
-                missionAdapter.notifyDataSetChanged();
+                if(et_amount.getText().toString().length()>0){
+                    String name = et_name.getText().toString();
+                    int amount = Integer.parseInt(et_amount.getText().toString());
+                    EventMission eventMission = new EventMission(name,amount);
+                    missions.add(eventMission);
+                    missionAdapter.notifyDataSetChanged();
+                }
             }
         });
         builder.show();

@@ -30,7 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp">
         <RadioButton
             android:id="@+id/radioButton_male"
             android:layout_width="wrap_content"
@@ -46,6 +47,57 @@
             android:checked="false"
             />
     </RadioGroup>
+    <TextView
+        android:id="@+id/join_event_mission_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text="Mission : "
+        android:layout_marginBottom="15dp"
+        android:visibility="gone"/>
+    <LinearLayout
+        android:id="@+id/join_event_mission_col"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="30dp" >
+        </LinearLayout>
+        <TextView
+            android:layout_width="75dp"
+            android:layout_marginLeft="2dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Name"/>
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:textSize="18sp"
+            android:text="Tổng"/>
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:textSize="18sp"
+            android:text="Đã có"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:text="Số lượng"/>
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/join_event_mission_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+    </android.support.v7.widget.RecyclerView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

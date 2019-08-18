@@ -95,8 +95,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textSize="14dp"
-                        android:text="Missión"/>
+                        android:textSize="18sp"
+                        android:text="Mission"/>
                     <ImageButton
                         android:id="@+id/create_other_event_mission_add_btn"
                         android:layout_width="30dp"
@@ -104,17 +104,13 @@
                         android:src="@android:drawable/ic_input_add" />
 
                 </LinearLayout>
-                <ScrollView
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/create_other_event_mission_recyclerview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/create_other_event_mission_recyclerview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/basic_border"/>
-                </ScrollView>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/basic_border"/>
 
             </LinearLayout>
             <android.support.v7.widget.RecyclerView

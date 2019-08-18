@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <CheckBox
+        android:id="@+id/joined_mission_checkbox"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+    <TextView
+        android:id="@+id/joined_mission_name"
+        android:layout_width="75dp"
+        android:layout_marginLeft="2dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Name"/>
+    <TextView
+        android:id="@+id/joined_mission_amount"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:textSize="18sp"
+        android:text="33"/>
+    <TextView
+        android:id="@+id/joined_mission_had"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:textSize="18sp"
+        android:text="33"/>
+    <EditText
+        android:id="@+id/joined_mission_input_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_weight="1"/>
+</LinearLayout>

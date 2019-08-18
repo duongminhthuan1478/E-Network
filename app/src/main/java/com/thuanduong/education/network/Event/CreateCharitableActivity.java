@@ -71,7 +71,6 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
         eventRef = FirebaseDatabase.getInstance().getReference(Event.EVENT_REF);
         setViews();
         dataSetup();
-        setDefaultTime();
         clickListener();
     }
     void dataSetup(){
@@ -188,16 +187,10 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
         eventImgRecyclerview.setOnClickListener(this);
     }
 
-    void setDefaultTime(){
-        long tomorrow = Time.getCur()+86400000l;
-        startTime = tomorrow;
-        endTime = tomorrow + 30000;
-    }
-
     private void setStartdate()
     {
         final Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(calendar.getTimeInMillis()+86400000);
+        calendar.setTimeInMillis(calendar.getTimeInMillis());
         new DatePickerDialog(CreateCharitableActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -215,14 +208,8 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
                 if(date+ ( hour * 60000 * 60 + min * 60000 )> Time.getCur())//+(6*86400000))
                 {
                     startTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    if(endTime < startTime) {
-                        ShowToast.showToast(CreateCharitableActivity.this,"this can't end before it's begin");
-                    }
-                    else {
+                    startTv.setText(Time.timeToString(startTime));
 
-                        ShowToast.showToast(CreateCharitableActivity.this,Time.timeRemaining(startTime));
-                        startTv.setText(Time.timeRemaining(startTime));
-                    }
                 }
                 else ShowToast.showToast(CreateCharitableActivity.this,"Not selected in the past");
             }
@@ -233,7 +220,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
     private void setEndDate()
     {
         final Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(calendar.getTimeInMillis()+86400000);
+        calendar.setTimeInMillis(calendar.getTimeInMillis());
         new DatePickerDialog(CreateCharitableActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -251,14 +238,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
                 if(date+ ( hour * 60000 * 60 + min * 60000 )> Time.getCur())//+(6*86400000))
                 {
                     endTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    if(endTime < startTime) {
-                        ShowToast.showToast(CreateCharitableActivity.this,"this can't end before it's begin");
-                    }
-                    else {
-
-                        ShowToast.showToast(CreateCharitableActivity.this,Time.timeRemaining(endTime));
-                        endTv.setText(Time.timeToString(endTime));
-                    }
+                    endTv.setText(Time.timeToString(endTime));
                 }
                 else ShowToast.showToast(CreateCharitableActivity.this,"Not selected in the past");
             }

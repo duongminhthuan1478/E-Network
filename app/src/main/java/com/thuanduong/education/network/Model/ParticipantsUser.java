@@ -18,7 +18,7 @@ public class ParticipantsUser{
     public static final String IS_MALE = "isMale";
     String id,sdt,name,userName,mssv;
     boolean isMale,alarmDisable = false;
-    String mission ;
+    ArrayList<EventMission> missions = new ArrayList<>();
     public ParticipantsUser(String id, String sdt, String name, boolean isMale, String userName,String mssv) {
         this.id = id;
         this.sdt = sdt;
@@ -26,16 +26,16 @@ public class ParticipantsUser{
         this.isMale = isMale;
         this.userName = userName;
         this.mssv = mssv;
-        this.mission = "null";
+        this.missions = new ArrayList<EventMission>();
     }
-    public ParticipantsUser(String id, String sdt, String name, boolean isMale, String userName,String mssv,String mission) {
+    public ParticipantsUser(String id, String sdt, String name, boolean isMale, String userName,String mssv,ArrayList<EventMission> mission) {
         this.id = id;
         this.sdt = sdt;
         this.name = name;
         this.isMale = isMale;
         this.userName = userName;
         this.mssv = mssv;
-        this.mission = mission;
+        this.missions = mission;
     }
     public ParticipantsUser(DataSnapshot dataSnapshot) {
         this.id = dataSnapshot.getKey();
@@ -52,7 +52,10 @@ public class ParticipantsUser{
         if(dataSnapshot.hasChild(MSSV))
             this.mssv = dataSnapshot.child(MSSV).getValue().toString();
         if(dataSnapshot.hasChild(EventMission.MISSON_REF))
-            this.mission = dataSnapshot.child(EventMission.MISSON_REF).getValue().toString();
+            for(DataSnapshot missionSnapshot:dataSnapshot.child(EventMission.MISSON_REF).getChildren()){
+                EventMission eventMission = new EventMission(missionSnapshot);
+                this.missions.add(eventMission);
+            }
     }
 
     public HashMap toHashMap(){
@@ -63,10 +66,20 @@ public class ParticipantsUser{
         map.put(ALARM_DISABLE,alarmDisable);
         map.put(USERNAME,userName);
         map.put(MSSV,mssv);
-        map.put(EventMission.MISSON_REF,mission);
+        map.put(EventMission.MISSON_REF,getMissionsHashMap());
         return map;
     }
-
+    protected HashMap getMissionsHashMap(){
+        HashMap map = new HashMap();
+        int count = 0;
+        for (EventMission mission:missions) {
+            HashMap map1 = new HashMap();
+            map1.put(EventMission.NAME,mission.getName());
+            map1.put(EventMission.AMOUNT,mission.getAmount());
+            map.put(count++ +"",map1);
+        }
+        return map;
+    }
     public void submit(String eventId){
         FirebaseDatabase.getInstance()
                 .getReference(Event.EVENT_REF)
@@ -141,11 +154,11 @@ public class ParticipantsUser{
         this.mssv = mssv;
     }
 
-    public String getMission() {
-        return mission;
+    public ArrayList<EventMission> getMission() {
+        return missions;
     }
 
-    public void setMission(String mission) {
-        this.mission = mission;
+    public void setMission(ArrayList<EventMission> mission) {
+        this.missions = mission;
     }
 }

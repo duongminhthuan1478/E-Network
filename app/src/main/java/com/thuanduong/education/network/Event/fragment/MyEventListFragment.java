@@ -117,7 +117,7 @@ public class MyEventListFragment extends Fragment implements EventRecyclerViewAd
         h.name.setText(event.getEventName());
         h.title.setText(event.getEventTitle());
         h.description.setText(event.getEventContent());
-        Picasso.get().load(event.getEventImage()).into(h.image);
+        Picasso.get().load(event.getEventImage()).placeholder(R.drawable.app_icon).into(h.image);
         // limit = 0 mean infinity
         h.member.setText(event.partnerCount() + "/" + (event.getLimit() != 0 ? event.getLimit() : "∞"));
         h.startTime.setText(Time.timeRemaining(event.getStartTime()));

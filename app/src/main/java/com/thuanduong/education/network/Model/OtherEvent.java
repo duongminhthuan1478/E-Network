@@ -1,9 +1,13 @@
 package com.thuanduong.education.network.Model;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.thuanduong.education.network.Event.EventMission;
+import com.thuanduong.education.network.Ultil.Time;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,8 +81,10 @@ public class OtherEvent extends Event {
             if(mission.getName().equals(missionName)) {
                 int count = 0;
                 for (ParticipantsUser participantsUser1 : participantsUser) {
-                    if (participantsUser1.getMission().equals(mission.getName())) {
-                        count++;
+                    for(EventMission eventMission:participantsUser1.getMission()){
+                        if (eventMission.getName().equals(mission.getName())) {
+                            count+=eventMission.getAmount();
+                        }
                     }
                 }
                 if(count>= mission.getAmount())
@@ -88,14 +94,33 @@ public class OtherEvent extends Event {
         return true;
     }
 
+    public int countMissionSlotRemaning(String missionName) {
+        int result = 0;
+        for (EventMission mission:missions) {
+            if(mission.getName().equals(missionName)) {
+                int count = 0;
+                for (ParticipantsUser participantsUser1 : participantsUser) {
+                    for(EventMission eventMission:participantsUser1.getMission()){
+                        if (eventMission.getName().equals(mission.getName())) {
+                            count+=eventMission.getAmount();
+                        }
+                    }
+                }
+                result = mission.getAmount() - count;
+            }
+        }
+        return result;
+    }
 
     public int countMissionPartner(String missionName) {
         int count = 0;
         for (EventMission mission:missions) {
             if(mission.getName().equals(missionName)) {
                 for (ParticipantsUser participantsUser1 : participantsUser) {
-                    if (participantsUser1.getMission().equals(mission.getName())) {
-                        count++;
+                    for(EventMission eventMission:participantsUser1.getMission()){
+                        if (eventMission.getName().equals(mission.getName())) {
+                            count+=eventMission.getAmount();
+                        }
                     }
                 }
             }
@@ -103,11 +128,11 @@ public class OtherEvent extends Event {
         return count;
     }
 
-    public ArrayList<String> vacantMissionList() {
-        ArrayList<String> vacantMission = new ArrayList<>();
+    public ArrayList<EventMission> vacantMissionList() {
+        ArrayList<EventMission> vacantMission = new ArrayList<>();
         for (EventMission mission:missions) {
             if(isMissionHasSpace(mission.getName())){
-                vacantMission.add(mission.getName());
+                vacantMission.add(mission);
             }
         }
         return vacantMission;
@@ -123,13 +148,15 @@ public class OtherEvent extends Event {
     }
     @Override
     public String getSummary() {
-        String summary = "sự kiện : "+getEventName()
-                +"\n" + getEventTitle()
-                +"\n\n\n nội dung : " + getEventContent()
-                +"\n địa chỉ : " + getEventTitle()
-                +"\n nhiệm vụ : ";
-        for(EventMission mission : missions)
-            summary += "\n - " + mission.getName() + "     " + mission.getAmount() + "người";
+        String summary = "<!-- #######  YAY, I AM THE SOURCE EDITOR! #########-->\n" +
+                "<h2 style=\"text-align: center;\"><strong><img src=\""+getEventImage()+"\" alt=\"Default\" width=\"70%\" height=\"200\" /></strong></h2>\n" +
+                "<h3>&nbsp;"+getName()+"</h3>\n" +
+                "<p><strong>&nbsp;</strong></p>\n" +
+                "<p>&nbsp;Th&ocirc;ng tin chi tiết: "+getDetail()+"</p>\n" +
+                "<p>&nbsp;Đơn vị tổ chức: "+getOrg()+"</p>\n" +
+                "<p>&nbsp;Địa chỉ: "+getAddress()+"</p>\n" +
+                "<p>&nbsp;Ng&agrave;y bắt đầu: "+ Time.LongtoTime(getStartTime())+"</p>\n" +
+                "<p>&nbsp;Ng&agrave;y kết th&uacute;c: "+Time.LongtoTime(getEndTime())+"</p>";
         return summary;
     }
     @Override
@@ -156,6 +183,13 @@ public class OtherEvent extends Event {
         return eventType;
     }
 
+    public String getMissionList(){
+        String result ="";
+        for (EventMission eventMission:missions) {
+            result +="\n-"+eventMission.getName()+"("+countMissionSlotRemaning(eventMission.getName())+"/"+eventMission.getAmount()+")";
+        }
+        return result;
+    }
     //getter & setter
 
     public String getName() {

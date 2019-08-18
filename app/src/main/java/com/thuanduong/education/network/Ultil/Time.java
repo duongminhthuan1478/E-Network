@@ -42,11 +42,11 @@ public class Time {
             }
             else if(spantime>=phut&&spantime<60*phut)
             {
-                return  (int)spantime/(phut)+" minute ago";
+                return  (int)spantime/(phut)+" min ago";
             }
             else if(spantime>=60*phut&&spantime<24*60*phut)
             {
-                return  (int)spantime/(60*phut)+" hour ago";
+                return  (int)spantime/(60*phut)+" h ago";
             }
             else if(spantime>=24*60*phut&&spantime<2*24*60*phut)
             {
@@ -66,11 +66,11 @@ public class Time {
             }
             else if(spantime>=phut&&spantime<60*phut)
             {
-                return  (int)spantime/(phut)+" minute later";
+                return  (int)spantime/(phut)+" min later";
             }
             else if(spantime>=60*phut&&spantime<24*60*phut)
             {
-                return  (int)spantime/(60*phut)+" hour later";
+                return  (int)spantime/(60*phut)+" h later";
             }
             else if(spantime>=24*60*phut&&spantime<2*24*60*phut)
             {

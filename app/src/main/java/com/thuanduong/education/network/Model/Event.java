@@ -108,9 +108,7 @@ public class Event {
         return !isJoined(uid) && (partnerCount() < getLimit() || getLimit()==0 );
     }
     public String getSummary() {
-        String summary = getEventName()
-                +"\n" + getEventTitle()
-                +"\n" + getEventContent();
+        String summary = "null";
         return summary;
     }
 
