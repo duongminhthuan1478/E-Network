@@ -16,8 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Event.EventsListActivity"></activity>
-        <activity android:name=".Event.EventDetailActivity" />
+        <activity
+            android:name=".Event.EventsListActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
+            android:name=".Event.EventDetailActivity"
+            android:parentActivityName=".Event.EventsListActivity">
+        </activity>
 
         <service
             android:name=".Service.EventNotificationService"
@@ -28,13 +34,30 @@
             android:name=".Event.ListUserEventActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".Event.JoinEventActivity" />
-        <activity android:name=".Event.EventListActivity" />
+        <activity
+            android:name=".Event.EventListActivity">
+        </activity>
         <activity android:name=".Event.AlarmActivity" />
-        <activity android:name=".Event.CreateClassRegisterActivity" />
-        <activity android:name=".Event.CreateOtherActivity" />
-        <activity android:name=".Event.CreateCharitableActivity" />
-        <activity android:name=".Event.CreateSeminarActivity" />
-        <activity android:name=".Event.CreateEventActivity" />
+        <activity
+            android:name=".Event.CreateClassRegisterActivity"
+            android:parentActivityName=".Event.EventsListActivity">
+        </activity>
+        <activity
+            android:name=".Event.CreateOtherActivity"
+            android:parentActivityName=".Event.EventsListActivity">
+        </activity>
+        <activity
+            android:name=".Event.CreateCharitableActivity"
+            android:parentActivityName=".Event.EventsListActivity">
+        </activity>
+        <activity
+            android:name=".Event.CreateSeminarActivity"
+            android:parentActivityName=".Event.EventsListActivity">
+        </activity>
+        <activity
+            android:name=".Event.CreateEventActivity"
+            android:parentActivityName=".Event.EventListActivity">
+        </activity>
         <activity android:name=".ChatBotActivity" />
         <activity android:name=".News.NewsDetailActivity" />
         <activity android:name=".News.NewsActivity" />
@@ -77,6 +100,7 @@
         <activity
             android:name=".Friends_RequestFriend.FriendsActivity"
             android:parentActivityName=".MainActivity" />
+
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
     Event event;
     String id;
     FirebaseAuth mAuth;
+    private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +70,7 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
         }
     }
     void viewSetup(){
+        actionBar();
         summary = findViewById(R.id.event_detail_summary);
         summary.setText(event.getSummary());
         join = findViewById(R.id.event_detail_join_btn);
@@ -105,6 +108,13 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
     void leftEvent(){
         FirebaseDatabase.getInstance().getReference(Event.EVENT_REF).child(id).child(Event.PARTICIPANTS_USER).child(mAuth.getCurrentUser().getUid()).setValue(null);
         finish();
+    }
+    private void actionBar() {
+        mToolbar = (Toolbar) findViewById(R.id.event_detail_activity_toolbar);
+        setSupportActionBar(mToolbar);
+        // Hiển thị dấu mũi tên quay lại
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Chi Tiết Sự Kiện");
     }
 
 }

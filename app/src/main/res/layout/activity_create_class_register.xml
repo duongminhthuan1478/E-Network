@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Event.CreateClassRegisterActivity">
-    <include android:id="@+id/create_class_register_activity_toolbar"
+    <include
+        android:id="@+id/create_class_register_activity_toolbar"
         layout="@layout/app_bar_layout">
     </include>
     <ScrollView

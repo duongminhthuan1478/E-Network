@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -57,6 +58,7 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
     Button startBtn,endBtn,submitBtn,cancelBtn;
     //auth
     private FirebaseAuth mAuth;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +124,7 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
         endBtn = findViewById(R.id.create_class_register_event_end);
         submitBtn = findViewById(R.id.create_class_register_event_submit);
         cancelBtn = findViewById(R.id.create_class_register_event_cancel);
+        actionBar();
     }
     void clickListener(){
         startBtn.setOnClickListener(this);
@@ -224,6 +227,14 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
         min = Integer.parseInt(minET.getText().toString());
         limit = Integer.parseInt(limitET.getText().toString());
         event = new RegisterClassEvent(id,createUser, imgs, startTime, endTime, limit, name, classId, content, min) ;
+    }
+
+    private void actionBar() {
+        mToolbar = (Toolbar) findViewById(R.id.create_class_register_activity_toolbar);
+        setSupportActionBar(mToolbar);
+        // Hiển thị dấu mũi tên quay lại
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Tạo Sự Kiện");
     }
 
 }

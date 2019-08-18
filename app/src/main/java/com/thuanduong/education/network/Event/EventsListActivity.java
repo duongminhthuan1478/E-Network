@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.thuanduong.education.network.Event.PagerAdapter.PagerAdapter;
@@ -16,6 +17,7 @@ public class EventsListActivity extends AppCompatActivity implements View.OnClic
     private ViewPager pager;
     private TabLayout tabLayout;
     FloatingActionButton fab;
+    private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,7 @@ public class EventsListActivity extends AppCompatActivity implements View.OnClic
     void viewSetup(){
         fab = findViewById(R.id.event_list_fab);
         fab.setOnClickListener(this);
+        actionBar();
     }
     @Override
     public void onClick(View v) {
@@ -54,5 +57,13 @@ public class EventsListActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    private void actionBar() {
+        mToolbar = (Toolbar) findViewById(R.id.events_list_activity_toolbar);
+        setSupportActionBar(mToolbar);
+        // Hiển thị dấu mũi tên quay lại
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Sự Kiện");
     }
 }

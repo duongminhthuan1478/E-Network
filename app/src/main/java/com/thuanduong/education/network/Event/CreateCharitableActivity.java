@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -56,6 +57,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
     Button startBtn,endBtn,submitBtn,cancelBtn;
     RecyclerView eventImgRecyclerview;
     ProgressDialog progressDialog;
+    private Toolbar mToolbar;
     //auth
     private FirebaseAuth mAuth;
     // adapter
@@ -172,6 +174,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
         eventImgRecyclerview.setLayoutManager(layoutManager);
         adapter = new EventImageAdapter(imgs,this);
         eventImgRecyclerview.setAdapter(adapter);
+        actionBar();
     }
     void clickListener(){
         startBtn.setOnClickListener(this);
@@ -310,6 +313,13 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
                 }
             });
         }
-
+    }
+    private void actionBar() {
+        mToolbar = (Toolbar) findViewById(R.id.create_charitable_activity_toolbar);
+        setSupportActionBar(mToolbar);
+        // Hiển thị dấu mũi tên quay lại
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Tạo Sự Kiện");
     }
 }
+

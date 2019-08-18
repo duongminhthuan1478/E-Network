@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Switch;
@@ -89,48 +90,48 @@ public class EventListActivity extends AppCompatActivity implements EventRecycle
         });
     }
     @Override
-    public void onBindViewHolder(EventRecyclerViewHolder h, ArrayList<Event> events, int position) {
+    public void onBindViewHolder(EventRecyclerViewHolder holder, ArrayList<Event> events, int position) {
         final Event event = events.get(position);
-        h.name.setText(event.getEventName());
-        h.title.setText(event.getEventTitle());
-        h.description.setText(event.getEventContent());
-        Picasso.get().load(event.getEventImage()).into(h.image);
+        holder.name.setText(event.getEventName());
+        holder.title.setText(event.getEventTitle());
+        holder.description.setText(event.getEventContent());
+        Picasso.get().load(event.getEventImage()).into(holder.image);
         // limit = 0 mean infinity
-        h.member.setText(event.partnerCount() + "/" + (event.getLimit() != 0 ? event.getLimit() : "∞"));
-        h.startTime.setText(Time.timeRemaining(event.getStartTime()));
-        h.accept_btn.setVisibility(View.VISIBLE);
-        h.accept_btn.setOnClickListener(new View.OnClickListener() {
+        holder.member.setText(event.partnerCount() + "/" + (event.getLimit() != 0 ? event.getLimit() : "∞"));
+        holder.startTime.setText(Time.timeRemaining(event.getStartTime()));
+        holder.accept_btn.setVisibility(View.VISIBLE);
+        holder.accept_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendUserToEventDetailActivity(event.getId());
             }
         });
         if(event.isCreator( mAuth.getCurrentUser().getUid())){
-            h.get_list_btn.setVisibility(View.VISIBLE);
-            h.get_list_btn.setOnClickListener(new View.OnClickListener() {
+            holder.get_list_btn.setVisibility(View.VISIBLE);
+            holder.get_list_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     sendUserToListEventActivity(event.getId());
                 }
             });
-            h.edit_button.setVisibility(View.VISIBLE);
-            h.edit_button.setOnClickListener(new View.OnClickListener() {
+            holder.edit_button.setVisibility(View.VISIBLE);
+            holder.edit_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
-            h.del_button.setVisibility(View.VISIBLE);
-            h.del_button.setOnClickListener(new View.OnClickListener() {
+            holder.del_button.setVisibility(View.VISIBLE);
+            holder.del_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     event.remove();
                 }
             });
         }else {
-            h.get_list_btn.setVisibility(View.GONE);
-            h.edit_button.setVisibility(View.GONE);
-            h.del_button.setVisibility(View.GONE);
+            holder.get_list_btn.setVisibility(View.GONE);
+            holder.edit_button.setVisibility(View.GONE);
+            holder.del_button.setVisibility(View.GONE);
         }
     }
 
@@ -156,4 +157,5 @@ public class EventListActivity extends AppCompatActivity implements EventRecycle
         Intent.putExtra("eventId",eventId);
         startActivity(Intent);
     }
+
 }

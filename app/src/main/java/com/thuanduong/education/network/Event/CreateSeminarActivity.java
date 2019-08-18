@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -59,12 +60,12 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
     ProgressDialog progressDialog;
     //auth
     private FirebaseAuth mAuth;
+    private Toolbar mToolbar;
     // adapter
     EventImageAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_seminar);
         setContentView(R.layout.activity_create_seminar);
         eventRef = FirebaseDatabase.getInstance().getReference(Event.EVENT_REF);
         setViews();
@@ -157,6 +158,7 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
         }
     }
     void setViews(){
+        actionBar();
         nameET = findViewById(R.id.create_seminar_event_name);
         orgET = findViewById(R.id.create_seminar_event_org);
         speakerET = findViewById(R.id.create_seminar_event_speakes);
@@ -310,6 +312,12 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
                 }
             });
         }
-
+    }
+    private void actionBar() {
+        mToolbar = (Toolbar) findViewById(R.id.create_seminar_activity_toolbar);
+        setSupportActionBar(mToolbar);
+        // Hiển thị dấu mũi tên quay lại
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Tạo Sự Kiện");
     }
 }

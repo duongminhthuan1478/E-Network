@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
@@ -74,6 +75,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
     // adapter
     EventImageAdapter imageAdapter;
     EventMissionAdapter missionAdapter;
+    private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +173,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         }
     }
     void setViews(){
+        actionBar();
         nameET = findViewById(R.id.create_other_event_name);
         detailET = findViewById(R.id.create_other_event_detail);
         orgET = findViewById(R.id.create_other_event_org);
@@ -193,6 +196,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         eventMissionRecyclerview.setLayoutManager(layoutManager1);
         missionAdapter = new EventMissionAdapter(missions,this);
         eventMissionRecyclerview.setAdapter(missionAdapter);
+        actionBar();
     }
     void clickListener(){
         startBtn.setOnClickListener(this);
@@ -373,6 +377,14 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
             }
         });
         builder.show();
+    }
+
+    private void actionBar() {
+        mToolbar = (Toolbar) findViewById(R.id.create_other_activity_toolbar);
+        setSupportActionBar(mToolbar);
+        // Hiển thị dấu mũi tên quay lại
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Tạo Sự Kiện");
     }
 
 }
