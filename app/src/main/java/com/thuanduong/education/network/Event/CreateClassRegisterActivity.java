@@ -1,40 +1,24 @@
 package com.thuanduong.education.network.Event;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
-import com.thuanduong.education.network.Adapter.EventImageAdapter;
-import com.thuanduong.education.network.Adapter.ViewHolder.eventImageRecyclerViewHolder;
-import com.thuanduong.education.network.Model.CharitableEvent;
 import com.thuanduong.education.network.Model.Event;
 import com.thuanduong.education.network.Model.RegisterClassEvent;
 import com.thuanduong.education.network.R;
@@ -55,7 +39,7 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
     long startTime, endTime;
     ArrayList<String> imgs = new ArrayList<>();
     //view
-    TextView startTv,endTv;
+    EditText startEdt, endEdt;
     EditText nameET,subjectET,contentET,minET,limitET;
     Button startBtn,endBtn,submitBtn,cancelBtn;
     //auth
@@ -106,6 +90,8 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
                     contentET.setText(event.getContent());
                     minET.setText(event.getMin()+"");
                     limitET.setText(event.getLimit()+"");
+                    startEdt.setText(Time.LongtoTime(event.getStartTime()));
+                    endEdt.setText(Time.LongtoTime(event.getEndTime()));
                 }
 
                 @Override
@@ -122,9 +108,9 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
         minET = findViewById(R.id.create_class_register_event_min);
         limitET = findViewById(R.id.create_class_register_event_limit);
         startBtn = findViewById(R.id.create_class_register_event_start);
-        startTv = findViewById(R.id.create_class_register_event_start_tv);
+        startEdt = findViewById(R.id.create_class_register_event_start_edt);
         endBtn = findViewById(R.id.create_class_register_event_end);
-        endTv = findViewById(R.id.create_class_register_event_end_tv);
+        endEdt = findViewById(R.id.create_class_register_event_end_edt);
         submitBtn = findViewById(R.id.create_class_register_event_submit);
         cancelBtn = findViewById(R.id.create_class_register_event_cancel);
         actionBar();
@@ -158,7 +144,7 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
                 if(date+ ( hour * 60000 * 60 + min * 60000 ) > Time.getCur())//+(6*86400000))
                 {
                     startTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    startTv.setText(Time.timeToString(startTime));
+                    startEdt.setText(Time.timeToString(startTime));
                 }
                 else ShowToast.showToast(CreateClassRegisterActivity.this,"Not selected in the past");
             }
@@ -187,7 +173,7 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
                 if(date+ ( hour * 60000 * 60 + min * 60000 )> Time.getCur())//+(6*86400000))
                 {
                     endTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    endTv.setText(Time.timeToString(endTime));
+                    endEdt.setText(Time.timeToString(endTime));
                 }
                 else ShowToast.showToast(CreateClassRegisterActivity.this,"Not selected in the past");
             }
@@ -196,21 +182,36 @@ public class CreateClassRegisterActivity extends AppCompatActivity  implements V
         timePickerDialog.setCanceledOnTouchOutside(true);
     }
     boolean checkInputData(){
-        boolean check = true;
-        check &= nameET.getText().toString().length() > 0
-                &&contentET.getText().toString().length() > 0
-                &&minET.getText().toString().length() > 0
-                &&limitET.getText().toString().length() > 0;
-        if(!check) {
-            ShowToast.showToast(CreateClassRegisterActivity.this,"you have entered incomplete information");
+        if(nameET.getText().toString().length() < 10)
+        {
+            ShowToast.showToast(CreateClassRegisterActivity.this,"tên môn học không được nhỏ hơn 10");
             return false;
         }
-        check &= startTime < endTime;
-        if(!check) {
-            ShowToast.showToast(CreateClassRegisterActivity.this,"start time must be less than end time");
+        if(subjectET.getText().toString().length() <= 0)
+        {
+            ShowToast.showToast(CreateClassRegisterActivity.this,"mã môn không được để trống");
             return false;
         }
-        return check;
+        if(contentET.getText().toString().length() < 10)
+        {
+            ShowToast.showToast(CreateClassRegisterActivity.this,"nội dung không được nhỏ hơn 10 ký tự");
+            return false;
+        }
+        if(minET.getText().toString().length() <= 0)
+        {
+            ShowToast.showToast(CreateClassRegisterActivity.this,"só người tối thiểu không dể trống");
+            return false;
+        }
+        if(limitET.getText().toString().length() == 0 || Integer.parseInt(limitET.getText().toString()) < Integer.parseInt(minET.getText().toString()))
+        {
+            ShowToast.showToast(CreateClassRegisterActivity.this,"số lượng tối đa không được bé hơn tối thiểu");
+            return false;
+        }
+        if(startTime > endTime) {
+            ShowToast.showToast(this,"thời gian bắt đầu phải bé hơn thời gian kết thúc");
+            return false;
+        }
+        return true;
     }
     void getData(){
         mAuth = FirebaseAuth.getInstance();

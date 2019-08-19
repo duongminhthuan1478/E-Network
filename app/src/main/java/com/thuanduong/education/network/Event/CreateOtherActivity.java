@@ -43,8 +43,6 @@ import com.thuanduong.education.network.Adapter.ViewHolder.MissionRecyclerViewHo
 import com.thuanduong.education.network.Adapter.ViewHolder.eventImageRecyclerViewHolder;
 import com.thuanduong.education.network.Model.Event;
 import com.thuanduong.education.network.Model.OtherEvent;
-import com.thuanduong.education.network.Model.SeminarEvent;
-import com.thuanduong.education.network.PersonProfileActivity;
 import com.thuanduong.education.network.R;
 import com.thuanduong.education.network.Ultil.ShowToast;
 import com.thuanduong.education.network.Ultil.Time;
@@ -64,7 +62,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
     ArrayList<String> imgs = new ArrayList<>();
     ArrayList<EventMission> missions = new ArrayList<>();
     //view
-    TextView startTv,endTv;
+    EditText startEdt, endEdt;
     EditText nameET,detailET,orgET,addressET;
     Button startBtn,endBtn,submitBtn,cancelBtn;
     ImageButton addMissionBtn;
@@ -163,6 +161,8 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
                     imageAdapter.notifyDataSetChanged();
                     missions.addAll(event.getMissions());
                     missionAdapter.notifyDataSetChanged();
+                    startEdt.setText(Time.LongtoTime(event.getStartTime()));
+                    endEdt.setText(Time.LongtoTime(event.getEndTime()));
                 }
 
                 @Override
@@ -179,9 +179,9 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         orgET = findViewById(R.id.create_other_event_org);
         addressET = findViewById(R.id.create_other_event_address);
         startBtn = findViewById(R.id.create_other_event_start);
-        startTv = findViewById(R.id.create_other_event_start_tv);
+        startEdt = findViewById(R.id.create_other_event_start_edt);
         endBtn = findViewById(R.id.create_other_event_end);
-        endTv = findViewById(R.id.create_other_event_end_tv);
+        endEdt = findViewById(R.id.create_other_event_end_edt);
         submitBtn = findViewById(R.id.create_other_event_submit);
         cancelBtn = findViewById(R.id.create_other_event_cancel);
         addMissionBtn = findViewById(R.id.create_other_event_mission_add_btn);
@@ -230,7 +230,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
                 if(date+ ( hour * 60000 * 60 + min * 60000 ) > Time.getCur())//+(6*86400000))
                 {
                     startTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    startTv.setText(Time.timeToString(startTime));
+                    startEdt.setText(Time.timeToString(startTime));
                 }
                 else ShowToast.showToast(CreateOtherActivity.this,"Not selected in the past");
             }
@@ -259,7 +259,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
                 if(date+ ( hour * 60000 * 60 + min * 60000 )> Time.getCur())//+(6*86400000))
                 {
                     endTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    endTv.setText(Time.timeToString(endTime));
+                    endEdt.setText(Time.timeToString(endTime));
                 }
                 else ShowToast.showToast(CreateOtherActivity.this,"Not selected in the past");
             }
@@ -268,31 +268,31 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
         timePickerDialog.setCanceledOnTouchOutside(true);
     }
     boolean checkInputData(){
-        boolean check = true;
-        check &= nameET.getText().toString().length() > 0
-                &&detailET.getText().toString().length() > 0
-                &&orgET.getText().toString().length() > 0
-                &&addressET.getText().toString().length() > 0;
-        if(!check) {
-            ShowToast.showToast(CreateOtherActivity.this,"you have entered incomplete information");
+        if(nameET.getText().toString().length() < 10)
+        {
+            ShowToast.showToast(this,"tên hoạt động không được nhỏ hơn 10");
             return false;
         }
-        check &= startTime < endTime;
-        if(!check) {
-            ShowToast.showToast(CreateOtherActivity.this,"start time must be less than end time");
+        if(detailET.getText().toString().length() <= 0)
+        {
+            ShowToast.showToast(this,"chi tiết hoạt động không được đẻ trống");
             return false;
         }
-        check &= imageAdapter.getItemCount() > 1;
-        if(!check) {
-            ShowToast.showToast(CreateOtherActivity.this,"missing avatar for event");
+        if(orgET.getText().toString().length() <= 0)
+        {
+            ShowToast.showToast(this,"tên tổ chức hoạt động không được đẻ trống");
             return false;
         }
-        check &= missions.size() > 0;
-        if(!check) {
-            ShowToast.showToast(CreateOtherActivity.this,"missing avatar for event");
+        if(addressET.getText().toString().length() <= 0)
+        {
+            ShowToast.showToast(this,"địa chỉ không được đẻ trống");
             return false;
         }
-        return check;
+        if(startTime > endTime) {
+            ShowToast.showToast(this,"thời gian bắt đầu phải bé hơn thời gian kết thúc");
+            return false;
+        }
+        return true;
     }
     void getData(){
         mAuth = FirebaseAuth.getInstance();

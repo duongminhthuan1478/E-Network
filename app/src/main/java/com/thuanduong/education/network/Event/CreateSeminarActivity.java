@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -35,7 +34,6 @@ import com.squareup.picasso.Picasso;
 import com.thuanduong.education.network.Adapter.EventImageAdapter;
 import com.thuanduong.education.network.Adapter.ViewHolder.eventImageRecyclerViewHolder;
 import com.thuanduong.education.network.Model.Event;
-import com.thuanduong.education.network.Model.RegisterClassEvent;
 import com.thuanduong.education.network.Model.SeminarEvent;
 import com.thuanduong.education.network.R;
 import com.thuanduong.education.network.Ultil.ShowToast;
@@ -55,7 +53,7 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
     long startTime, endTime;
     ArrayList<String> imgs = new ArrayList<>();
     //view
-    TextView startTv,endTv;
+    EditText startEdt, endEdt;
     EditText nameET,orgET,speakerET,recmdAudienceET,contentET,addressET;
     Button startBtn,endBtn,submitBtn,cancelBtn;
     RecyclerView eventImgRecyclerview;
@@ -149,6 +147,8 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
                     addressET.setText(event.getAddress());
                     imgs.addAll(event.getImgs());
                     adapter.notifyDataSetChanged();
+                    startEdt.setText(Time.LongtoTime(event.getStartTime()));
+                    endEdt.setText(Time.LongtoTime(event.getEndTime()));
                 }
 
                 @Override
@@ -167,9 +167,9 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
         contentET = findViewById(R.id.create_seminar_event_content);
         addressET = findViewById(R.id.create_seminar_event_address);
         startBtn = findViewById(R.id.create_seminar_event_start);
-        startTv = findViewById(R.id.create_seminar_event_start_tv);
+        startEdt = findViewById(R.id.create_seminar_event_start_edt);
         endBtn = findViewById(R.id.create_seminar_event_end);
-        endTv = findViewById(R.id.create_seminar_event_end_tv);
+        endEdt = findViewById(R.id.create_seminar_event_end_edt);
         submitBtn = findViewById(R.id.create_seminar_event_submit);
         cancelBtn = findViewById(R.id.create_seminar_event_cancel);
         eventImgRecyclerview = findViewById(R.id.create_seminar_event_recyclerview);
@@ -209,7 +209,7 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
                 if(date+ ( hour * 60000 * 60 + min * 60000 )> Time.getCur())//+(6*86400000))
                 {
                     startTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    startTv.setText(Time.timeToString(startTime));
+                    startEdt.setText(Time.timeToString(startTime));
                 }
                 else ShowToast.showToast(CreateSeminarActivity.this,"Not selected in the past");
             }
@@ -238,7 +238,7 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
                 if(date+ ( hour * 60000 * 60 + min * 60000 )> Time.getCur())//+(6*86400000))
                 {
                     endTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    endTv.setText(Time.timeToString(endTime));
+                    endEdt.setText(Time.timeToString(endTime));
                 }
                 else ShowToast.showToast(CreateSeminarActivity.this,"Not selected in the past");
             }
@@ -247,28 +247,38 @@ public class CreateSeminarActivity extends AppCompatActivity implements View.OnC
         timePickerDialog.setCanceledOnTouchOutside(true);
     }
     boolean checkInputData(){
-        boolean check = true;
-        check &= nameET.getText().toString().length() > 0
-                &&orgET.getText().toString().length() > 0
-                &&speakerET.getText().toString().length() > 0
-                &&recmdAudienceET.getText().toString().length() > 0
-                &&contentET.getText().toString().length() > 0
-                &&addressET.getText().toString().length() > 0;
-        if(!check) {
-            ShowToast.showToast(CreateSeminarActivity.this,"you have entered incomplete information");
+        if(nameET.getText().toString().length() < 10)
+        {
+            ShowToast.showToast(this,"tên hoạt động không được nhỏ hơn 10");
             return false;
         }
-        check &= startTime < endTime;
-        if(!check) {
-            ShowToast.showToast(CreateSeminarActivity.this,"start time must be less than end time");
+        if(orgET.getText().toString().length() <= 0)
+        {
+            ShowToast.showToast(this,"tên đơn vị tổ chức không được đẻ trống");
             return false;
         }
-        check &= adapter.getItemCount() > 1;
-        if(!check) {
-            ShowToast.showToast(CreateSeminarActivity.this,"missing avatar for event");
+        if(speakerET.getText().toString().length() <= 0)
+        {
+            ShowToast.showToast(this,"tên diễn giả không được để trống ");
             return false;
         }
-        return check;
+        if(recmdAudienceET.getText().toString().length() <= 0)
+        {
+            ShowToast.showToast(this,"đối tượng tham gia không được để trống");
+            return false;
+        }
+        if(addressET.getText().toString().length() <= 0)
+        {
+            ShowToast.showToast(this,"địa chỉ không được để trống");
+            return false;
+        }
+
+        if(startTime > endTime) {
+            ShowToast.showToast(this,"thời gian bắt đầu phải bé hơn thời gian kết thúc");
+            return false;
+        }
+
+        return true;
     }
     void getData(){
         mAuth = FirebaseAuth.getInstance();

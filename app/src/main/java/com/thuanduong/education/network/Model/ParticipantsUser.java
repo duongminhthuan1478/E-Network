@@ -98,6 +98,15 @@ public class ParticipantsUser{
                 .child(ALARM_DISABLE)
                 .setValue(true);
     }
+
+    public String getMissionList(){
+        String result ="";
+        for (EventMission eventMission:missions) {
+            result +="\n-"+eventMission.getName()+"("+eventMission.getAmount()+")";
+        }
+        return result;
+    }
+
     public boolean isAlarmDisable() {
         return alarmDisable;
     }

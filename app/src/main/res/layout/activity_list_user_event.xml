@@ -15,12 +15,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/basic_border"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:text="Name"/>
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/basic_border"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:text="Phone Number"/>
         <TextView
@@ -28,19 +30,22 @@
             android:layout_height="wrap_content"
             android:background="@drawable/basic_border"
             android:textAlignment="center"
-            android:text="mssv"/>
+            android:textStyle="bold"
+            android:text="MSSV"/>
         <TextView
             android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:background="@drawable/basic_border"
+            android:textStyle="bold"
             android:textAlignment="center"
-            android:text="gender"/>
+            android:text="Gender"/>
         <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@drawable/basic_border"
             android:textAlignment="center"
-            android:text="note"/>
+            android:textStyle="bold"
+            android:text="Mission"/>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/user_of_event_list_recyclerview"
