@@ -17,11 +17,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <!-- Tên hoạt động-->
             <EditText
                 android:id="@+id/create_class_register_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tên hoạt động"/>
+                android:hint="Tên môn học"/>
             <EditText
                 android:id="@+id/create_class_register_event_subject_id"
                 android:layout_width="match_parent"
@@ -31,44 +32,49 @@
                 android:id="@+id/create_class_register_event_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="vài dòng năn nỉ"/>
+                android:hint="nội dung xin mở lớp"/>
+            <!-- Start date-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="70dp"
+                <EditText
+                    android:id="@+id/create_class_register_event_start_edt"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Start date :"/>
+                    android:layout_weight="8"
+                    android:focusable="false"
+                    android:enabled="false"
+                    android:hint="Ngày bắt đầu"/>
                 <Button
                     android:id="@+id/create_class_register_event_start"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:text="start"/>
-                <TextView
-                    android:id="@+id/create_class_register_event_start_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ngày bắt đầu"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="70dp"
+                <EditText
+                    android:id="@+id/create_class_register_event_end_edt"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="End date :"/>
+                    android:layout_weight="8"
+                    android:focusable="false"
+                    android:enabled="false"
+                    android:hint="Ngày kết thúc"/>
                 <Button
                     android:id="@+id/create_class_register_event_end"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="end"/>
-                <TextView
-                    android:id="@+id/create_class_register_event_end_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ngày kết thúc"/>
+                    android:layout_weight="2"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="End"/>
             </LinearLayout>
 
             <EditText
@@ -76,13 +82,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="số lượng tối thiểu"/>
+                android:hint="Số lượng tối thiểu"/>
             <EditText
                 android:id="@+id/create_class_register_event_limit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="số lượng"/>
+                android:hint="Số lượng"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -94,6 +100,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Submit"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/button_blue"
                     android:layout_margin="20dp"/>
                 <Button
                     android:id="@+id/create_class_register_event_cancel"
@@ -101,6 +109,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="cancel"
+                    android:background="@drawable/button"
+                    android:textColor="@android:color/white"
                     android:layout_margin="20dp"/>
             </LinearLayout>
         </LinearLayout>

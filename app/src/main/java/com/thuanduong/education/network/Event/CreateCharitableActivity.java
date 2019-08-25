@@ -12,11 +12,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -40,6 +40,8 @@ import com.thuanduong.education.network.R;
 import com.thuanduong.education.network.Ultil.ShowToast;
 import com.thuanduong.education.network.Ultil.Time;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -54,7 +56,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
     long startTime, endTime;
     ArrayList<String> imgs = new ArrayList<>();
     //view
-    TextView startTv,endTv;
+    EditText startEdt, endEdt;
     EditText nameET,detailET,scheduleET,orgET,addressET,requireET,limitET;
     Button startBtn,endBtn,submitBtn,cancelBtn;
     RecyclerView eventImgRecyclerview;
@@ -73,6 +75,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
         dataSetup();
         clickListener();
     }
+
     void dataSetup(){
         if(getIntent().hasExtra("eventId")){
             final String eventId = getIntent().getStringExtra("eventId");
@@ -88,8 +91,11 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
                      addressET.setText(event.getAddress());
                      requireET.setText(event.getParticipantsRequire()+"");
                      limitET.setText(event.getLimit()+"");
+                     startEdt.setText(Time.LongtoTime(event.getStartTime()));
+                     endEdt.setText(Time.LongtoTime(event.getEndTime()));
                      imgs.addAll(event.getImgs());
                      adapter.notifyDataSetChanged();
+
                 }
 
                 @Override
@@ -166,9 +172,9 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
         requireET =findViewById(R.id.create_charitable_event_require);
         limitET = findViewById(R.id.create_charitable_event_limit);
         startBtn = findViewById(R.id.create_charitable_event_start);
-        startTv = findViewById(R.id.create_charitable_event_start_tv);
+        startEdt = findViewById(R.id.create_charitable_event_start_edt);
         endBtn = findViewById(R.id.create_charitable_event_end);
-        endTv = findViewById(R.id.create_charitable_event_end_tv);
+        endEdt = findViewById(R.id.create_charitable_event_end_edt);
         submitBtn = findViewById(R.id.create_charitable_event_submit);
         cancelBtn = findViewById(R.id.create_charitable_event_cancel);
         eventImgRecyclerview = findViewById(R.id.create_charitable_event_recyclerview);
@@ -208,7 +214,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
                 if(date+ ( hour * 60000 * 60 + min * 60000 )> Time.getCur())//+(6*86400000))
                 {
                     startTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    startTv.setText(Time.timeToString(startTime));
+                    startEdt.setText(Time.timeToString(startTime));
 
                 }
                 else ShowToast.showToast(CreateCharitableActivity.this,"Not selected in the past");
@@ -238,7 +244,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
                 if(date+ ( hour * 60000 * 60 + min * 60000 )> Time.getCur())//+(6*86400000))
                 {
                     endTime =date+ ( hour * 60000 * 60 + min * 60000 );
-                    endTv.setText(Time.timeToString(endTime));
+                    endEdt.setText(Time.timeToString(endTime));
                 }
                 else ShowToast.showToast(CreateCharitableActivity.this,"Not selected in the past");
             }
@@ -248,25 +254,50 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
     }
     boolean checkInputData(){
         boolean check = true;
-        check &= nameET.getText().toString().length() > 0
-                &&detailET.getText().toString().length() > 0
-                &&orgET.getText().toString().length() > 0
-                &&scheduleET.getText().toString().length() > 0
-                &&addressET.getText().toString().length() > 0
-                &&requireET.getText().toString().length() > 0
-                &&limitET.getText().toString().length() > 0;
-        if(!check) {
-            ShowToast.showToast(CreateCharitableActivity.this,"you have entered incomplete information");
+//        check &= nameET.getText().toString().length() > 10
+//                &&detailET.getText().toString().length() > 10
+//                &&orgET.getText().toString().length() > 0
+//                &&scheduleET.getText()  .toString().length() > 0
+//                &&addressET.getText().toString().length() > 5
+//                &&requireET.getText().toString().length() > 0
+//                &&limitET.getText().toString().length() > 0;
+        if(nameET.getText().toString().length() < 5) {
+            ShowToast.showToast(CreateCharitableActivity.this,"Tên hoạt động phải lớn hơn 5 ký tự!!!");
             return false;
         }
+        if(detailET.getText().toString().length() < 10) {
+            ShowToast.showToast(CreateCharitableActivity.this,"Chi tiết sự kiện  phải lớn hơn 10 ký tự!!!");
+            return false;
+        }
+        if(orgET.getText().toString().length() == 0 || TextUtils.isEmpty(orgET.getText().toString())) {
+            ShowToast.showToast(CreateCharitableActivity.this,"Nhà tổ chức không được để trống!!!");
+            return false;
+        }
+        if(scheduleET.getText().toString().length() == 0 || TextUtils.isEmpty(scheduleET.getText().toString())) {
+            ShowToast.showToast(CreateCharitableActivity.this,"Lịch trình không được để trống!!!");
+            return false;
+        }
+        if(addressET.getText().toString().length() == 0 || TextUtils.isEmpty(addressET.getText().toString())) {
+            ShowToast.showToast(CreateCharitableActivity.this,"Địa chỉ không được để trống!!!");
+            return false;
+        }
+        if(TextUtils.isEmpty(requireET.getText().toString()) ||  Integer.parseInt(requireET.getText().toString()) == 0) {
+            ShowToast.showToast(CreateCharitableActivity.this,"Số lượng yêu cầu phải lớn hơn 0 !!!");
+            return false;
+        }
+        if(TextUtils.isEmpty(limitET.getText().toString()) || Integer.parseInt(limitET.getText().toString()) == 0) {
+            ShowToast.showToast(CreateCharitableActivity.this,"Số lượng giới hạn không chính xác !!!");
+            return false;
+        }
+
         check &= startTime < endTime;
         if(!check) {
-            ShowToast.showToast(CreateCharitableActivity.this,"start time must be less than end time");
+            ShowToast.showToast(CreateCharitableActivity.this,"thời gian bắt đầu phải bé hơn thời gian kết thúc");
             return false;
         }
-        check &= adapter.getItemCount() > 1;
+        check &= Integer.parseInt(requireET.getText().toString()) < Integer.parseInt(limitET.getText().toString());
         if(!check) {
-            ShowToast.showToast(CreateCharitableActivity.this,"missing avatar for event");
+            ShowToast.showToast(CreateCharitableActivity.this,"số lượng tối thiểu phải bé hơn số lượng yêu cầu");
             return false;
         }
         return check;
@@ -289,7 +320,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
         if(position < imgs.size())
             Picasso.get()
                     .load(imgs.get(position))
-                    .placeholder(R.drawable.profile)
+                    .placeholder(R.drawable.app_icon)
                     .resize(100,100)
                     .centerCrop()
                     .into(holder.img);

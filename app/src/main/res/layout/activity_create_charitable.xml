@@ -31,78 +31,74 @@
                 android:id="@+id/create_charitable_event_org"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="đơn vị tổ chức"/>
+                android:hint="Đơn vị tổ chức"/>
             <EditText
                 android:id="@+id/create_charitable_event_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="100dp"
                 android:textAlignment="viewStart"
-                android:hint="lịch trình cụ thể"/>
+                android:hint="Lịch trình cụ thể"/>
             <EditText
                 android:id="@+id/create_charitable_event_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="địa chỉ"/>
+                android:hint="Địa chỉ"/>
             <EditText
                 android:id="@+id/create_charitable_event_require"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="số lượng yêu cầu"/>
+                android:hint="Số lượng yêu cầu"/>
             <EditText
                 android:id="@+id/create_charitable_event_limit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="số lượng tối đa"/>
+                android:hint="Số lượng tối đa"/>
+            <!-- Start date-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/create_charitable_event_start_edt"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
-                    <Button
-                        android:id="@+id/create_charitable_event_start"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="start"/>
-                    <TextView
-                        android:id="@+id/create_charitable_event_start_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="textStart"
-                        android:layout_marginLeft="10dp"
-                        android:text="ngày bắt đầu"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_weight="8"
+                    android:focusable="false"
+                    android:enabled="false"
+                    android:hint="Ngày bắt đầu"/>
+                <Button
+                    android:id="@+id/create_charitable_event_start"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
-                    <Button
-                        android:id="@+id/create_charitable_event_end"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:text="end"/>
-                    <TextView
-                        android:id="@+id/create_charitable_event_end_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="textStart"
-                        android:layout_marginLeft="10dp"
-                        android:text="ngày kết thúc"/>
-                </LinearLayout>
-
+                    android:layout_weight="2"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="start"/>
+            </LinearLayout>
+            <!-- end date-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/create_charitable_event_end_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:focusable="false"
+                    android:enabled="false"
+                    android:hint="Ngày kết thúc"/>
+                <Button
+                    android:id="@+id/create_charitable_event_end"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="End"/>
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/create_charitable_event_recyclerview"
@@ -119,6 +115,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Submit"
+                    android:background="@drawable/button_blue"
+                    android:textColor="@android:color/white"
                     android:layout_margin="20dp"/>
                 <Button
                     android:id="@+id/create_charitable_event_cancel"
@@ -126,6 +124,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="cancel"
+                    android:background="@drawable/button"
+                    android:textColor="@android:color/white"
                     android:layout_margin="20dp"/>
             </LinearLayout>
         </LinearLayout>

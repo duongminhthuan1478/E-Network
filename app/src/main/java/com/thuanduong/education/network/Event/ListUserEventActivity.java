@@ -1,10 +1,13 @@
 package com.thuanduong.education.network.Event;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.thuanduong.education.network.Adapter.ParticipantsEventRecyclerViewAdapter;
 import com.thuanduong.education.network.Adapter.ViewHolder.ParticipantsEventRecyclerViewHolder;
 import com.thuanduong.education.network.Model.Event;
+import com.thuanduong.education.network.Model.OtherEvent;
 import com.thuanduong.education.network.Model.ParticipantsUser;
 import com.thuanduong.education.network.R;
 
@@ -23,7 +27,7 @@ public class ListUserEventActivity extends AppCompatActivity implements Particip
     private RecyclerView recyclerView;
     ParticipantsEventRecyclerViewAdapter participantsEventRecyclerViewAdapter;
     ArrayList<ParticipantsUser> participantsUsers = new ArrayList<>();
-
+    boolean isOtherEvent;
     //
     String eventId;
     @Override
@@ -62,6 +66,7 @@ public class ListUserEventActivity extends AppCompatActivity implements Particip
                             participantsUsers.add(participantsUser);
                         }
                         participantsEventRecyclerViewAdapter.notifyDataSetChanged();
+                        isOtherEvent = dataSnapshot.child(Event.EVENT_TYPE).getValue().toString().equals(OtherEvent.eventType);
                     }
 
                     @Override
@@ -72,13 +77,33 @@ public class ListUserEventActivity extends AppCompatActivity implements Particip
     }
     @Override
     public void onBindViewHolder(ParticipantsEventRecyclerViewHolder holder, ArrayList<ParticipantsUser> participantsUsers, int position) {
-        ParticipantsUser participantsUser = participantsUsers.get(position);
+        final ParticipantsUser participantsUser = participantsUsers.get(position);
         holder.name.setText(participantsUser.getName());
         holder.phone.setText(participantsUser.getSdt());
         holder.mssv.setText(participantsUser.getMssv());
         if(participantsUser.getIsMale())
             holder.gender.setText("male");
         else    holder.gender.setText("female");
-        //holder.note.setText(participantsUser.getMission());
+        if(isOtherEvent){
+            holder.note.setText("Chi tiết");
+            holder.note.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showNoteDetail(participantsUser);
+                }
+            });
+        }
+    }
+    void showNoteDetail(ParticipantsUser participantsUser){
+        new AlertDialog.Builder(this)
+                .setTitle("Chi tiết")
+                .setMessage(participantsUser.getMissionList())
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

@@ -33,54 +33,56 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:hint="đơn vị tổ chức"/>
+                android:hint="Đơn vị tổ chức"/>
             <EditText
                 android:id="@+id/create_other_event_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:hint="địa chỉ"/>
+                android:hint="Địa chỉ"/>
+            <!-- Start date-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="5dp">
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/create_other_event_start_edt"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <Button
-                        android:id="@+id/create_other_event_start"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="start"/>
-                    <TextView
-                        android:id="@+id/create_other_event_start_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="ngày bắt đầu "/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_weight="8"
+                    android:focusable="false"
+                    android:enabled="false"
+                    android:hint="Ngày bắt đầu"/>
+                <Button
+                    android:id="@+id/create_other_event_start"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <Button
-                        android:id="@+id/create_other_event_end"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="end"/>
-                    <TextView
-                        android:id="@+id/create_other_event_end_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="ngày kết thúc "/>
-                </LinearLayout>
+                    android:layout_weight="2"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="start"/>
+            </LinearLayout>
+            <!-- end date-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/create_other_event_end_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:focusable="false"
+                    android:enabled="false"
+                    android:hint="Ngày kết thúc"/>
+                <Button
+                    android:id="@+id/create_other_event_end"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="End"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -130,6 +132,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Submit"
+                    android:background="@drawable/button_blue"
+                    android:textColor="@android:color/white"
                     android:layout_margin="20dp"/>
                 <Button
                     android:id="@+id/create_other_event_cancel"
@@ -137,6 +141,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="cancel"
+                    android:background="@drawable/button"
+                    android:textColor="@android:color/white"
                     android:layout_margin="20dp"/>
             </LinearLayout>
         </LinearLayout>
