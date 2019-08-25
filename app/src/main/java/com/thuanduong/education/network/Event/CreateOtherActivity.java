@@ -91,6 +91,7 @@ public class CreateOtherActivity extends AppCompatActivity implements View.OnCli
                 if(checkInputData()){
                     getData();
                     event.submit();
+                    ShowToast.showToast(getApplicationContext(), "Tạo sự kiện thành công");
                     finish();
                 }
                 else Snackbar.make(getWindow().getDecorView().getRootView(),"đề nghị bạn nhập đầy đủ chính xác",Snackbar.LENGTH_LONG).show();

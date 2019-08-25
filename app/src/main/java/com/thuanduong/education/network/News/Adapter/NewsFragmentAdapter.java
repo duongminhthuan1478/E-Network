@@ -75,7 +75,7 @@ public class NewsFragmentAdapter extends RecyclerView.Adapter<NewsFragmentAdapte
             if(image.equals(Common_Constants.BASE_URL)){
                 imgView.setVisibility(View.GONE);
             } else {
-                Picasso.get().load(image).placeholder(R.drawable.no_image).error(R.drawable.no_image).into(imgView);
+                Picasso.get().load(image).placeholder(R.drawable.app_icon).error(R.drawable.app_icon).into(imgView);
             }
             titleTxt.setText(mLstNews.get(position).getTitle());
             sumContentTxt.setText(mLstNews.get(position).getSmrContents());

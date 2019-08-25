@@ -112,6 +112,7 @@ public class CreateCharitableActivity extends AppCompatActivity  implements View
                 if(checkInputData()){
                     getData();
                     event.submit();
+                    ShowToast.showToast(getApplicationContext(), "Tạo sự kiện thành công");
                     finish();
                 }
                 else Snackbar.make(getWindow().getDecorView().getRootView(),"đề nghị bạn nhập đầy đủ chính xác",Snackbar.LENGTH_LONG).show();
